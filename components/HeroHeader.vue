@@ -1,8 +1,8 @@
 <script setup>
-import logo from "~/public/img/general-img/logo.png";
-import searchIcon from "~/public/img/general-img/search.svg";
-import cart from "~/public/img/general-img/cart.svg";
-import menu from "~/public/img/general-img/menu.png";
+import logo from "~/public/logo.png";
+import searchIcon from "~/public/search.svg";
+import cart from "~/public/cart.svg";
+import menu from "~/public/menu.png";
 </script>
 
 <template>

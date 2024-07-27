@@ -10,7 +10,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        heroImg: "url('~/public/img/general-img/hero.png')",
+        heroImg: "url('~/public/hero.png')",
       },
       colors: {
         primary: "rgba(230, 180, 29, 1)",
