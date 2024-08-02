@@ -1,5 +1,5 @@
 <script setup>
-import explore from "~/public/explore.png";
+import explore from "~/assets/explore.png";
 </script>
 
 <template>
