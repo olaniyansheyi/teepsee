@@ -1,5 +1,15 @@
+<script setup>
+import { useMenuStore } from "~/stores/menu";
+
+const menuStore = useMenuStore();
+</script>
+
 <template>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
+  <div class="relative">
+    <NuxtLayout>
+      <NuxtPage />
+      <SearchTab v-if="menuStore.openSearchQuery" />
+      <InfoModal v-if="menuStore.showInfoModal" />
+    </NuxtLayout>
+  </div>
 </template>

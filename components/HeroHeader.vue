@@ -40,7 +40,7 @@ const menuStore = useMenuStore();
     </div>
     <button class="px-5 py-1 bg-white border-none rounded-md text-secondary md:block hidden"> Sign Up</button>
     <div class="md:hidden flex justify-center items-center gap-x-3 ">
-        <img :src="searchIcon" alt="">
+        <img :src="searchIcon" alt="" @click="menuStore.handleToggleSearch">
         <img :src="menu" alt="" @click="menuStore.handleToggleMenu">
     </div>
   </div>

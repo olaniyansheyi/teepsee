@@ -17,8 +17,13 @@ const menuStore = useMenuStore();
     ></div>
     <div class="w-[280px] bg-white h-full z-20 absolute left-0 overflow-y-auto">
       <div class="w-full h-full relative">
-        <img :src="cancel" class="w-[18px] absolute top-8 right-5" alt="" />
-        <div class="pt-20 px-6 space-y-10">
+        <img
+          :src="cancel"
+          class="w-[18px] absolute top-8 right-5"
+          alt=""
+          @click="menuStore.handleToggleMenu"
+        />
+        <div class="pt-20 px-6 space-y-9">
           <img :src="unknownUser" class="w-[80px]" alt="" />
           <div
             class="flex flex-col items-start gap-y-5 tracking-wider text-secondary text-lg"
