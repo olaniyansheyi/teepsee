@@ -3,6 +3,9 @@ import logo from "~/assets/logo.png";
 import searchIcon from "~/assets/search.svg";
 import cart from "~/assets/cart.svg";
 import menu from "~/assets/menu.png";
+import { useMenuStore } from "~/stores/menu";
+
+const menuStore = useMenuStore();
 </script>
 
 <template>
@@ -38,7 +41,7 @@ import menu from "~/assets/menu.png";
     <button class="px-5 py-1 bg-white border-none rounded-md text-secondary md:block hidden"> Sign Up</button>
     <div class="md:hidden flex justify-center items-center gap-x-3 ">
         <img :src="searchIcon" alt="">
-        <img :src="menu" alt="">
+        <img :src="menu" alt="" @click="menuStore.handleToggleMenu">
     </div>
   </div>
 </template>
