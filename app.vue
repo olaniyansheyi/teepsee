@@ -10,6 +10,7 @@ const menuStore = useMenuStore();
       <NuxtPage />
       <SearchTab v-if="menuStore.openSearchQuery" />
       <InfoModal v-if="menuStore.showInfoModal" />
+      <Menu v-if="menuStore.openMenu" />
     </NuxtLayout>
   </div>
 </template>

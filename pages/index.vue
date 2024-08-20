@@ -15,7 +15,8 @@ onMounted(() => {
     <Services />
     <ProductsCategory />
     <Testimonial />
+
+    <div class="my-40"></div>
     <Footer />
-    <Menu v-if="menuStore.openMenu" />
   </div>
 </template>
