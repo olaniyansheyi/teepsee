@@ -39,6 +39,20 @@ img {
   animation: loading 1s infinite linear;
 }
 
+input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: inline-block;
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: white;
+  border: 2px solid #666;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
 @keyframes loading {
   20% {
     background-position: 0% 0%, 50% 50%, 100% 50%;
