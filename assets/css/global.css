@@ -15,6 +15,9 @@ body {
 .gray-white {
   background-color: rgba(245, 245, 245, 1);
 }
+.gray-white-text {
+  color: rgba(102, 102, 102, 1);
+}
 .grey-black {
   background-color: rgba(25, 25, 25, 1);
 }
