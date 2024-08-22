@@ -6,6 +6,8 @@ export const useMenuStore = defineStore("menu", {
     openMenu: false,
     openSearchQuery: false,
     showInfoModal: false,
+    showRatingModal: false,
+    showTrackingModal: false,
   }),
   actions: {
     handleToggleMenu() {
@@ -16,6 +18,12 @@ export const useMenuStore = defineStore("menu", {
     },
     handleToggleShowInfoModal() {
       this.showInfoModal = !this.showInfoModal;
+    },
+    handleToggleShowRatingModal() {
+      this.showRatingModal = !this.showRatingModal;
+    },
+    handleToggleShowTrackingModal() {
+      this.showTrackingModal = !this.showTrackingModal;
     },
   },
 });

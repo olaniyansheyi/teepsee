@@ -12,7 +12,7 @@ const menuStore = useMenuStore();
   <div
     class="md:w-[400px] w-[85%] h-auto rounded-xl bg-white fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30"
   >
-    <div class="relative wifull h-full">
+    <div class="relative w-full h-full">
       <img
         :src="cancelCircle"
         class="absolute top-5 right-5 w-[30px]"

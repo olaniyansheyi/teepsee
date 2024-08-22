@@ -11,6 +11,8 @@ const menuStore = useMenuStore();
       <SearchTab v-if="menuStore.openSearchQuery" />
       <InfoModal v-if="menuStore.showInfoModal" />
       <Menu v-if="menuStore.openMenu" />
+      <RatingModal v-if="menuStore.showRatingModal" />
+      <TrackingModal v-if="menuStore.showTrackingModal" />
     </NuxtLayout>
   </div>
 </template>
