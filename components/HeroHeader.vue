@@ -10,7 +10,7 @@ const menuStore = useMenuStore();
 
 <template>
   <div
-    class="text-white flex justify-between items-center  md:gap-x-5"
+    class="text-white flex justify-between items-center  md:gap-x-5 "
   >
     <div class="w-[5.8rem] md:w-[13%] lg:w-[10%]">
       <img :src="logo" alt="" />

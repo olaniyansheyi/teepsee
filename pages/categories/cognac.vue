@@ -67,10 +67,10 @@ definePageMeta({
     </div>
 
     <div
-      class="flex justify-center lg:items-start items-center gap-5 flex-wrap md:justify-start my-3"
+      class="flex justify-center lg:items-start items-center gap-5 flex-wrap md:justify-start my-3 w-full"
     >
       <div
-        class="text-secondary w-[300px] h-[344px] bg-white rounded-lg py-3 sm:px-8 px-2 relative"
+        class="text-secondary w-[45%] md:w-[40%] lg:w-[21%] h-[344px] bg-white rounded-lg py-3 sm:px-8 px-2 relative"
       >
         <div
           class="h-[70%] border-b-[#666666] border-b-[1px] flex justify-center items-center p-4"
@@ -89,7 +89,7 @@ definePageMeta({
         </div>
       </div>
       <div
-        class="text-secondary w-[300px] h-[344px] bg-white rounded-lg py-3 sm:px-8 px-2 relative"
+        class="text-secondary w-[45%] md:w-[40%] lg:w-[21%] h-[344px] bg-white rounded-lg py-3 sm:px-8 px-2 relative"
       >
         <div
           class="h-[70%] border-b-[#666666] border-b-[1px] flex justify-center items-center p-4"
@@ -108,7 +108,7 @@ definePageMeta({
         </div>
       </div>
       <div
-        class="text-secondary w-[300px] h-[344px] bg-white rounded-lg py-3 sm:px-8 px-2 relative"
+        class="text-secondary w-[45%] md:w-[40%] lg:w-[21%] h-[344px] bg-white rounded-lg py-3 sm:px-8 px-2 relative"
       >
         <div
           class="h-[70%] border-b-[#666666] border-b-[1px] flex justify-center items-center p-4"
@@ -127,7 +127,7 @@ definePageMeta({
         </div>
       </div>
       <div
-        class="text-secondary w-[300px] h-[344px] bg-white rounded-lg py-3 sm:px-8 px-2 relative"
+        class="text-secondary w-[45%] md:w-[40%] lg:w-[21%] h-[344px] bg-white rounded-lg py-3 sm:px-8 px-2 relative"
       >
         <div
           class="h-[70%] border-b-[#666666] border-b-[1px] flex justify-center items-center p-4"
@@ -146,5 +146,9 @@ definePageMeta({
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="mx-5">
+    <RecentProductList />
   </div>
 </template>
