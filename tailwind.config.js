@@ -13,6 +13,7 @@ export default {
         heroImg: "url('~/assets/hero.png')",
         trackOrderImg: "url('~/assets/orderHeroImg.png')",
         faqImg: "url('~/assets/faqImg.png')",
+        signupImg: "url('~/assets/bg-signup.png')",
       },
       colors: {
         primary: "rgba(230, 180, 29, 1)",

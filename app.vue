@@ -13,6 +13,7 @@ const menuStore = useMenuStore();
       <Menu v-if="menuStore.openMenu" />
       <RatingModal v-if="menuStore.showRatingModal" />
       <TrackingModal v-if="menuStore.showTrackingModal" />
+      <!-- <CheckoutModal /> -->
     </NuxtLayout>
   </div>
 </template>

@@ -5,7 +5,7 @@
     <HeroHeader />
     <div class="w-full h-full flex justify-start items-center text-white">
       <div class="tracking-wide z-10">
-        <h1 class="text-6xl font-semibold">Get Teepsee</h1>
+        <h1 class="sm:text-6xl text-4xl font-semibold">Get Teepsee</h1>
         <p class="font-normal mt-2 md:mt-4 text-md">
           Wine,Liquor,ice,Mixers and some other cool stuff? We got it.
         </p>
