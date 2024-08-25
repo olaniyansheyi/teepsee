@@ -14,11 +14,11 @@ const menuStore = useMenuStore();
         <div
     class="text-secondary flex justify-between items-center  md:gap-x-5"
   >
-    <div class="w-[5.8rem] md:w-[13%] lg:w-[10%]">
-      <img :src="teepseeBlack" alt="" class="hidden sm:block"/>
-      <img :src="menuBlack" class="sm:hidden block w-[25px]" alt="" @click="menuStore.handleToggleMenu">
+    <div class="w-[5.8rem] md:w-[16%] lg:w-[10%]">
+      <img :src="teepseeBlack" alt="" class="hidden lg:block"/>
+      <img :src="menuBlack" class="lg:hidden block w-[25px] cursor-pointer" alt="" @click="menuStore.handleToggleMenu">
     </div>
-    <div class="hidden md:flex justify-center gap-x-6 items-center w-auto">
+    <div class="hidden lg:flex justify-center gap-x-6 items-center w-auto">
       <div class="relative text-secondary">
         <input
           type="text"
@@ -41,8 +41,8 @@ const menuStore = useMenuStore();
         </p>
       </nav>
     </div>
-    <button class="px-5 py-1 bg-primary border-none rounded-md text-white md:block hidden"> Sign Up</button>
-    <div class="md:hidden flex justify-center items-center gap-x-3 ">
+    <button class="px-5 py-1 bg-primary border-none rounded-md text-white lg:block hidden"> Sign Up</button>
+    <div class="lg:hidden flex justify-center items-center gap-x-3 ">
         <img :src="searchBlack" alt="" @click="menuStore.handleToggleSearch" class="w-[28px]">
        <div class="relative w-[28px]">
         <img :src="Buy" alt="" class="w-[28px]"/>

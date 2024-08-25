@@ -10,12 +10,12 @@ const menuStore = useMenuStore();
 
 <template>
   <div
-    class="text-white flex justify-between items-center  md:gap-x-5 "
+    class="text-white flex justify-between items-center  lg:gap-x-5 "
   >
-    <div class="w-[5.8rem] md:w-[13%] lg:w-[10%]">
+    <div class="w-[5.8rem] md:w-[16%] lg:w-[18%] cursor-pointer">
       <img :src="logo" alt="" />
     </div>
-    <div class="hidden md:flex justify-center gap-x-6 items-center w-auto">
+    <div class="hidden lg:flex justify-center gap-x-6 items-center w-auto">
       <div class="relative text-white">
         <input
           type="text"
@@ -38,8 +38,8 @@ const menuStore = useMenuStore();
         </p>
       </nav>
     </div>
-    <button class="px-5 py-1 bg-white border-none rounded-md text-secondary md:block hidden"> Sign Up</button>
-    <div class="md:hidden flex justify-center items-center gap-x-3 ">
+    <button class="px-5 py-1 bg-white border-none rounded-md text-secondary lg:block hidden"> Sign Up</button>
+    <div class="lg:hidden flex justify-center items-center gap-x-3 cursor-pointer ">
         <img :src="searchIcon" alt="" @click="menuStore.handleToggleSearch">
         <img :src="menu" alt="" @click="menuStore.handleToggleMenu" class="w-[25px]">
     </div>

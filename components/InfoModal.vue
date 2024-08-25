@@ -15,7 +15,7 @@ const menuStore = useMenuStore();
     <div class="relative w-full h-full">
       <img
         :src="cancelCircle"
-        class="absolute top-5 right-5 w-[30px]"
+        class="absolute top-5 right-5 w-[30px] cursor-pointer"
         alt=""
         @click="menuStore.handleToggleShowInfoModal"
       />

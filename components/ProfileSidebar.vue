@@ -23,7 +23,7 @@ import Heart from "~/assets/icons/Heart.svg";
         </div>
 
         <div
-          class="flex flex-col items-start gap-y-5 tracking-wider text-secondary text-lg pt-4"
+          class="flex flex-col items-start gap-y-5 tracking-wider text-secondary text-lg pt-4 cursor-pointer"
         >
           <div class="flex items-center justify-center gap-x-6">
             <img :src="AddUser" alt="" />

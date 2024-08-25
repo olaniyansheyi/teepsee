@@ -19,11 +19,11 @@ const menuStore = useMenuStore();
       <div class="w-full h-full relative">
         <img
           :src="cancel"
-          class="w-[18px] absolute top-8 right-5"
+          class="w-[18px] absolute top-8 right-5 cursor-pointer"
           alt=""
           @click="menuStore.handleToggleMenu"
         />
-        <div class="pt-20 px-6 space-y-9">
+        <div class="pt-10 px-6 space-y-4">
           <img :src="unknownUser" class="w-[80px]" alt="" />
           <div
             class="flex flex-col items-start gap-y-5 tracking-wider text-secondary text-lg"
