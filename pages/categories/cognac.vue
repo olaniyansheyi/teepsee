@@ -3,8 +3,8 @@ import unknownUser from "~/assets/unknownUser.png";
 import AddUser from "~/assets/AddUser.png";
 import Bag from "~/assets/icons/Bag.svg";
 import Heart from "~/assets/icons/Heart.svg";
-import hennessey from "~/assets/hennessey.png";
-import hennessey1 from "~/assets/hennessey1.png";
+import tequila2 from "~/assets/tequila-2.png";
+import gin2 from "~/assets/gin-2.png";
 import hennessey2 from "~/assets/hennessey2.png";
 
 definePageMeta({
@@ -75,7 +75,7 @@ definePageMeta({
         <div
           class="h-[70%] border-b-[#666666] border-b-[1px] flex justify-center items-center p-4"
         >
-          <img class="h-[10rem]" :src="hennessey" alt="" />
+          <img class="h-[7rem]" :src="tequila2" alt="" />
         </div>
         <div class="flex justify-between items-start w-full my-3">
           <span class="flex justify-start items-start flex-col">
@@ -94,7 +94,7 @@ definePageMeta({
         <div
           class="h-[70%] border-b-[#666666] border-b-[1px] flex justify-center items-center p-4"
         >
-          <img class="h-[10rem]" :src="hennessey1" alt="" />
+          <img class="h-[7rem]" :src="gin2" alt="" />
         </div>
         <div class="flex justify-between items-start w-full my-3">
           <span class="flex justify-start items-start flex-col">
@@ -113,7 +113,7 @@ definePageMeta({
         <div
           class="h-[70%] border-b-[#666666] border-b-[1px] flex justify-center items-center p-4"
         >
-          <img class="h-[10rem]" :src="hennessey2" alt="" />
+          <img class="h-[7rem]" :src="hennessey2" alt="" />
         </div>
         <div class="flex justify-between items-start w-full my-3">
           <span class="flex justify-start items-start flex-col">
@@ -132,7 +132,7 @@ definePageMeta({
         <div
           class="h-[70%] border-b-[#666666] border-b-[1px] flex justify-center items-center p-4"
         >
-          <img class="h-[10rem]" :src="hennessey" alt="" />
+          <img class="h-[7rem]" :src="tequila2" alt="" />
         </div>
         <div class="flex justify-between items-start w-full my-3">
           <span class="flex justify-start items-start flex-col">
