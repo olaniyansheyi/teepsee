@@ -1,5 +1,7 @@
 <script setup>
 import { useMenuStore } from "~/stores/menu";
+import { useProductsStore } from "~/stores/product.js";
+const productsStore = useProductsStore();
 
 const menuStore = useMenuStore();
 </script>
@@ -14,6 +16,7 @@ const menuStore = useMenuStore();
       <RatingModal v-if="menuStore.showRatingModal" />
       <TrackingModal v-if="menuStore.showTrackingModal" />
       <!-- <CheckoutModal /> -->
+      <Spinner v-if="productsStore.isLoading" />
     </NuxtLayout>
   </div>
 </template>

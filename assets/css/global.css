@@ -33,16 +33,13 @@ img {
 .loader {
   width: 45px;
   aspect-ratio: 0.75;
-  --c: no-repeat linear-gradient(#f6cd46 0 0);
+  --c: no-repeat linear-gradient(#e6b41d 0 0);
   background: var(--c) 0% 50%, var(--c) 50% 50%, var(--c) 100% 50%;
   background-size: 20% 50%;
   animation: loading 1s infinite linear;
 }
 
 input[type="radio"] {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   display: inline-block;
   position: relative;
   width: 1.5rem;

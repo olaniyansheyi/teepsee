@@ -1,29 +1,29 @@
 <script setup>
-import { useMenuStore } from "~/stores/menu";
-import cancel from "~/assets/cancel.png";
 import unknownUser from "~/assets/unknownUser.png";
 import AddUser from "~/assets/AddUser.png";
 import Bag from "~/assets/icons/Bag.svg";
 import Heart from "~/assets/icons/Heart.svg";
+import tequila2 from "~/assets/tequila-2.png";
+import gin2 from "~/assets/gin-2.png";
+import hennessey2 from "~/assets/hennessey2.png";
 
-const menuStore = useMenuStore();
+import { useProductsStore } from "~/stores/product.js";
+const productsStore = useProductsStore();
+
+onMounted(() => {
+  productsStore.getProducts();
+  productsStore.filterByCategory("ALL");
+});
+
+definePageMeta({
+  layout: "custom",
+});
 </script>
-
 <template>
-  <div class="fixed inset-0 z-50">
-    <div
-      class="z-10 fixed inset-0 bg-black bg-opacity-50"
-      @click="menuStore.handleToggleMenu"
-    ></div>
-    <div class="w-[280px] bg-white h-full z-20 absolute left-0 overflow-y-auto">
-      <div class="w-full h-full relative">
-        <img
-          :src="cancel"
-          class="w-[18px] absolute top-8 right-5 cursor-pointer"
-          alt=""
-          @click="menuStore.handleToggleMenu"
-        />
-        <div class="pt-10 px-6 space-y-4">
+  <div class="mx-5 mb-8 flex justify-start items-start gap-5">
+    <div class="w-[280px] bg-white h-full rounded-lg md:block hidden">
+      <div class="w-full h-full">
+        <div class="pt-5 px-6 space-y-9">
           <img :src="unknownUser" class="w-[80px]" alt="" />
           <div
             class="flex flex-col items-start gap-y-5 tracking-wider text-secondary text-lg"
@@ -46,6 +46,7 @@ const menuStore = useMenuStore();
             <button class="bg-secondary rounded-lg py-3 w-[9rem]">Login</button>
             <button class="bg-primary rounded-lg py-3 w-[9rem]">Sign Up</button>
           </div>
+
           <div class="flex flex-col gap-y-4">
             <div class="mx-auto space-y-1 tracking-wider">
               <h1 class="text-lg">Custom Price range</h1>
@@ -114,5 +115,37 @@ const menuStore = useMenuStore();
         </div>
       </div>
     </div>
+
+    <div
+      class="flex justify-center lg:items-start items-center gap-5 flex-wrap md:justify-start my-3 w-full"
+    >
+      <div
+        v-for="product in productsStore.currentCategory"
+        :key="product.id"
+        class="text-secondary w-[45%] md:w-[40%] lg:w-[21%] h-[260px] bg-white rounded-lg py-5 sm:px-8 px-2 relative"
+      >
+        <div
+          class="h-[50%] border-b-[#666666] border-b-[1px] flex justify-center items-center p-4"
+        >
+          <img class="h-[5rem]" :src="product.image" alt="" />
+        </div>
+        <div
+          class="flex justify-between items-start w-full my-3 flex-col gap-y-1"
+        >
+          <span class="flex justify-start items-start flex-col">
+            <h1 class="text-md font-semibold">{{ product.name }}</h1>
+            <p class="text-[#666666]">{{ product.category }}</p>
+          </span>
+          <h2 class="font-semibold text-md">#{{ product.price }}</h2>
+        </div>
+        <div class="w-[25px] absolute top-3 right-4">
+          <img :src="Heart" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mx-5">
+    <RecentProductList />
   </div>
 </template>

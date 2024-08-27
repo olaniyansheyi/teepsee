@@ -5,4 +5,5 @@ export default {
   vite: {
     assetsInclude: ["**/*.svg", "**/*.png"],
   },
+  plugins: [{ src: "~/plugins/supabase.js", mode: "client" }],
 };
