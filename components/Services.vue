@@ -13,7 +13,7 @@ import teepsee from "~/assets/teepsee.png";
       class="flex gap-5 justify-center items-center lg:flex-nowrap flex-wrap"
     >
       <div
-        class="bg-white rounded-xl py-10 w-[320px] h-[340px] flex justify-center items-center"
+        class="bg-white rounded-xl py-10 w-[320px] sm:w-[46%] h-[340px] flex justify-center items-center"
       >
         <div
           class="justify-center items-center text-center flex flex-col gap-y-4 max-w-[80%] mx-auto"
@@ -24,7 +24,7 @@ import teepsee from "~/assets/teepsee.png";
         </div>
       </div>
       <div
-        class="bg-white w-[320px] h-[340px] flex justify-center items-center rounded-xl py-10"
+        class="bg-white w-[320px] sm:w-[46%] h-[340px] flex justify-center items-center rounded-xl py-10"
       >
         <div
           class="justify-center items-center text-center flex flex-col gap-y-4 max-w-[80%] mx-auto"
@@ -35,7 +35,7 @@ import teepsee from "~/assets/teepsee.png";
         </div>
       </div>
       <div
-        class="bg-white w-[320px] h-[340px] flex justify-center items-center rounded-xl py-10"
+        class="bg-white w-[320px] sm:w-[46%] h-[340px] flex justify-center items-center rounded-xl py-10"
       >
         <div
           class="justify-center items-center text-center flex flex-col gap-y-4 max-w-[80%] mx-auto"

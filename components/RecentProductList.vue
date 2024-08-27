@@ -13,7 +13,7 @@ import Heart from "~/assets/icons/Heart.svg";
       class="flex justify-center lg:items-start items-center gap-5 flex-wrap md:justify-start my-3"
     >
       <div
-        class="text-secondary md:w-[30%] lg:w-[20%] sm:w-[40%] w-[47%] bg-white rounded-lg py-3 sm:px-8 px-2 relative"
+        class="text-secondary md:w-[30%] lg:w-[20%] sm:w-[40%] w-[45%] bg-white rounded-lg py-3 sm:px-8 px-2 relative"
       >
         <div
           class="h-[70%] border-b-[#666666] border-b-[1px] flex justify-center items-center p-4"
@@ -32,7 +32,7 @@ import Heart from "~/assets/icons/Heart.svg";
         </div>
       </div>
       <div
-        class="text-secondary md:w-[30%] lg:w-[20%] sm:w-[40%] w-[47%] bg-white rounded-lg py-3 sm:px-8 px-2 relative"
+        class="text-secondary md:w-[30%] lg:w-[20%] sm:w-[40%] w-[45%] bg-white rounded-lg py-3 sm:px-8 px-2 relative"
       >
         <div
           class="h-[70%] border-b-[#666666] border-b-[1px] flex justify-center items-center p-4"
@@ -51,7 +51,7 @@ import Heart from "~/assets/icons/Heart.svg";
         </div>
       </div>
       <div
-        class="text-secondary md:w-[30%] lg:w-[20%] sm:w-[40%] w-[47%] bg-white rounded-lg py-3 sm:px-8 px-2 relative"
+        class="text-secondary md:w-[30%] lg:w-[20%] sm:w-[40%] w-[45%] bg-white rounded-lg py-3 sm:px-8 px-2 relative"
       >
         <div
           class="h-[70%] border-b-[#666666] border-b-[1px] flex justify-center items-center p-4"

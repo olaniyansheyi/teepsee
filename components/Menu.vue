@@ -5,8 +5,25 @@ import unknownUser from "~/assets/unknownUser.png";
 import AddUser from "~/assets/AddUser.png";
 import Bag from "~/assets/icons/Bag.svg";
 import Heart from "~/assets/icons/Heart.svg";
+import { useProductsStore } from "~/stores/product.js";
+const productsStore = useProductsStore();
 
 const menuStore = useMenuStore();
+
+const minPrice = ref("");
+const maxPrice = ref("");
+
+function onSetPriceRange() {
+  const min = parseFloat(minPrice.value) || 0;
+  const max = parseFloat(maxPrice.value) || Infinity;
+  productsStore.setPriceRange(min, max);
+  menuStore.handleToggleMenu();
+}
+
+function onSelectPriceRange(range) {
+  productsStore.selectPriceRange(range);
+  menuStore.handleToggleMenu();
+}
 </script>
 
 <template>
@@ -46,17 +63,27 @@ const menuStore = useMenuStore();
             <button class="bg-secondary rounded-lg py-3 w-[9rem]">Login</button>
             <button class="bg-primary rounded-lg py-3 w-[9rem]">Sign Up</button>
           </div>
-          <div class="flex flex-col gap-y-4">
+          <div
+            v-if="productsStore.isInProductPage"
+            class="flex flex-col gap-y-4"
+          >
             <div class="mx-auto space-y-1 tracking-wider">
               <h1 class="text-lg">Custom Price range</h1>
-              <form class="flex gap-x-1 w-full">
+              <form
+                class="flex gap-x-1 w-full"
+                @submit.prevent="onSetPriceRange"
+              >
                 <input
                   type="text"
                   class="bg-[#e6e3e3] py-1 outline-none rounded-lg border-[#b1a7a7] w-1/3 text-center border-2"
+                  placeholder="Min"
+                  v-model="minPrice"
                 />
                 <input
                   type="text"
                   class="bg-[#e6e3e3] py-1 outline-none rounded-lg border-[#b1a7a7] w-1/3 text-center border-2"
+                  placeholder="Max"
+                  v-model="maxPrice"
                 />
                 <button
                   type="submit"
@@ -69,22 +96,34 @@ const menuStore = useMenuStore();
 
             <div class="me-auto space-y-1 tracking-wider">
               <h1 class="text-lg">Prices</h1>
-              <form
+              <div
                 class="flex gap-y-4 flex-col w-full justify-end items-start font-semibold text-md"
               >
                 <div class="flex justify-center items-center gap-x-3">
-                  <input type="radio" class="" />
+                  <input
+                    type="radio"
+                    name="priceRange"
+                    @click="onSelectPriceRange('under10000')"
+                  />
                   <p>Under #10,000</p>
                 </div>
                 <div class="flex justify-center items-center gap-x-3">
-                  <input type="radio" class="" />
+                  <input
+                    type="radio"
+                    name="priceRange"
+                    @click="onSelectPriceRange('10000to50000')"
+                  />
                   <p>#10,000-#50,000</p>
                 </div>
                 <div class="flex justify-center items-center gap-x-3">
-                  <input type="radio" class="" />
-                  <p>#10,000-#100,000</p>
+                  <input
+                    type="radio"
+                    name="priceRange"
+                    @click="onSelectPriceRange('51000to150000')"
+                  />
+                  <p>#51,000-#150,000</p>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
 
@@ -98,17 +137,47 @@ const menuStore = useMenuStore();
             <div
               class="flex flex-col items-start gap-y-5 tracking-wider text-secondary text-lg mb-10"
             >
-              <p>General</p>
-              <p>Champagne</p>
-              <p>Herb</p>
-              <p>Gin</p>
-              <p>Brandy</p>
-              <p>Wine</p>
-              <p>Cognac</p>
-              <p>Whiskey</p>
-              <p>Vodka</p>
-              <p>Tequila</p>
-              <p>Combo</p>
+              <NuxtLink @click="menuStore.handleToggleMenu" to="/categories/all"
+                >General</NuxtLink
+              >
+              <NuxtLink
+                @click="menuStore.handleToggleMenu"
+                to="/categories/champagne"
+                >Champagne</NuxtLink
+              >
+              <NuxtLink
+                @click="menuStore.handleToggleMenu"
+                to="/categories/herb"
+                >Herb</NuxtLink
+              >
+              <NuxtLink @click="menuStore.handleToggleMenu" to="/categories/gin"
+                >Gin</NuxtLink
+              >
+              <NuxtLink
+                @click="menuStore.handleToggleMenu"
+                to="/categories/brandy"
+                >Brandy</NuxtLink
+              >
+              <NuxtLink
+                @click="menuStore.handleToggleMenu"
+                to="/categories/cognac/"
+                >Cognac</NuxtLink
+              >
+              <NuxtLink
+                @click="menuStore.handleToggleMenu"
+                to="/categories/whiskey"
+                >Whiskey</NuxtLink
+              >
+              <NuxtLink
+                @click="menuStore.handleToggleMenu"
+                to="/categories/vodka"
+                >Vodka</NuxtLink
+              >
+              <NuxtLink
+                @click="menuStore.handleToggleMenu"
+                to="/categories/tequila"
+                >Tequila</NuxtLink
+              >
             </div>
           </div>
         </div>

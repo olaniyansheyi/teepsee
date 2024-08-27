@@ -7,6 +7,9 @@ export const useProductsStore = defineStore("products", {
     currentCategory: [],
     isLoading: false,
     error: "",
+    isInProductPage: false,
+    priceRange: { min: 0, max: Infinity },
+    selectedPriceRange: null,
   }),
   actions: {
     async getProducts() {
@@ -20,16 +23,21 @@ export const useProductsStore = defineStore("products", {
           this.error = "Products could not be loaded";
         } else {
           this.products = data || [];
-          this.isLoading = false;
         }
       } catch (error) {
         console.error("Unexpected error:", error);
         this.error = "An unexpected error occurred";
       } finally {
         console.log("yo");
+        this.isLoading = false;
       }
     },
-    filterByCategory(category) {
+
+    async filterByCategory(category) {
+      if (this.products.length === 0) {
+        await this.getProducts();
+      }
+
       if (category === "ALL") {
         this.currentCategory = this.products;
       } else {
@@ -37,6 +45,41 @@ export const useProductsStore = defineStore("products", {
           (product) => product.category === category
         );
       }
+    },
+    toggleIsInProductPage() {
+      this.isInProductPage = !this.isInProductPage;
+    },
+
+    setPriceRange(min, max) {
+      this.priceRange = { min, max };
+      this.applyFilters();
+    },
+    selectPriceRange(range) {
+      this.selectedPriceRange = range;
+      switch (range) {
+        case "under10000":
+          this.setPriceRange(0, 10000);
+          break;
+        case "10000to50000":
+          this.setPriceRange(10000, 50000);
+          break;
+        case "51000to150000":
+          this.setPriceRange(51000, 150000);
+          break;
+        default:
+          this.setPriceRange(0, Infinity);
+          break;
+      }
+    },
+    applyFilters() {
+      let filtered;
+      filtered = this.currentCategory.filter(
+        (product) =>
+          product.price >= this.priceRange.min &&
+          product.price <= this.priceRange.max
+      );
+
+      this.currentCategory = filtered;
     },
   },
 });

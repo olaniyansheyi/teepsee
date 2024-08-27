@@ -3,9 +3,10 @@ import { useProductsStore } from "~/stores/product.js";
 const productsStore = useProductsStore();
 
 onMounted(() => {
-  productsStore.filterByCategory("ALL");
+  productsStore.filterByCategory("HERB");
   productsStore.toggleIsInProductPage();
 });
+
 onUnmounted(() => {
   productsStore.toggleIsInProductPage();
 });

@@ -3,7 +3,7 @@ import { useProductsStore } from "~/stores/product.js";
 const productsStore = useProductsStore();
 
 onMounted(() => {
-  productsStore.filterByCategory("ALL");
+  productsStore.filterByCategory("GIN");
   productsStore.toggleIsInProductPage();
 });
 onUnmounted(() => {

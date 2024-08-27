@@ -3,11 +3,7 @@ import { useProductsStore } from "~/stores/product.js";
 const productsStore = useProductsStore();
 
 onMounted(() => {
-  productsStore.filterByCategory("ALL");
-  productsStore.toggleIsInProductPage();
-});
-onUnmounted(() => {
-  productsStore.toggleIsInProductPage();
+  productsStore.filterByCategory("CHAMPAGNE");
 });
 
 definePageMeta({

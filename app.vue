@@ -4,6 +4,10 @@ import { useProductsStore } from "~/stores/product.js";
 const productsStore = useProductsStore();
 
 const menuStore = useMenuStore();
+
+onMounted(() => {
+  productsStore.getProducts();
+});
 </script>
 
 <template>
