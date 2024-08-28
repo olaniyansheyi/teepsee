@@ -1,8 +1,26 @@
 <script setup>
 import unknownUser from "~/assets/unknownUser.png";
+
 import AddUser from "~/assets/AddUser.png";
 import Bag from "~/assets/icons/Bag.svg";
 import Heart from "~/assets/icons/Heart.svg";
+import { useProductsStore } from "~/stores/product.js";
+const productsStore = useProductsStore();
+
+const minPrice = ref("");
+const maxPrice = ref("");
+
+function onSetPriceRange() {
+  const min = parseFloat(minPrice.value) || 0;
+  const max = parseFloat(maxPrice.value) || Infinity;
+  productsStore.setPriceRange(min, max);
+  minPrice.value = "";
+  maxPrice.value = "";
+}
+
+function onSelectPriceRange(range) {
+  productsStore.selectPriceRange(range);
+}
 
 const props = defineProps({
   currentCategory: {
@@ -16,7 +34,7 @@ const props = defineProps({
   <div class="mx-5 mb-8 flex justify-start items-start gap-5">
     <div class="w-[280px] bg-white h-full rounded-lg md:block hidden">
       <div class="w-full h-full">
-        <div class="pt-5 px-6 space-y-9">
+        <div class="pt-5 px-6 space-y-3">
           <img :src="unknownUser" class="w-[80px]" alt="" />
           <div
             class="flex flex-col items-start gap-y-5 tracking-wider text-secondary text-lg"
@@ -40,17 +58,27 @@ const props = defineProps({
             <button class="bg-primary rounded-lg py-3 w-[9rem]">Sign Up</button>
           </div>
 
-          <div class="flex flex-col gap-y-4">
+          <div
+            v-if="productsStore.isInProductPage"
+            class="flex flex-col gap-y-4"
+          >
             <div class="mx-auto space-y-1 tracking-wider">
               <h1 class="text-lg">Custom Price range</h1>
-              <form class="flex gap-x-1 w-full">
+              <form
+                class="flex gap-x-1 w-full"
+                @submit.prevent="onSetPriceRange"
+              >
                 <input
                   type="text"
                   class="bg-[#e6e3e3] py-1 outline-none rounded-lg border-[#b1a7a7] w-1/3 text-center border-2"
+                  placeholder="Min"
+                  v-model="minPrice"
                 />
                 <input
                   type="text"
                   class="bg-[#e6e3e3] py-1 outline-none rounded-lg border-[#b1a7a7] w-1/3 text-center border-2"
+                  placeholder="Max"
+                  v-model="maxPrice"
                 />
                 <button
                   type="submit"
@@ -63,22 +91,34 @@ const props = defineProps({
 
             <div class="me-auto space-y-1 tracking-wider">
               <h1 class="text-lg">Prices</h1>
-              <form
+              <div
                 class="flex gap-y-4 flex-col w-full justify-end items-start font-semibold text-md"
               >
                 <div class="flex justify-center items-center gap-x-3">
-                  <input type="radio" class="" />
+                  <input
+                    type="radio"
+                    name="priceRange"
+                    @click="onSelectPriceRange('under10000')"
+                  />
                   <p>Under #10,000</p>
                 </div>
                 <div class="flex justify-center items-center gap-x-3">
-                  <input type="radio" class="" />
+                  <input
+                    type="radio"
+                    name="priceRange"
+                    @click="onSelectPriceRange('10000to50000')"
+                  />
                   <p>#10,000-#50,000</p>
                 </div>
                 <div class="flex justify-center items-center gap-x-3">
-                  <input type="radio" class="" />
-                  <p>#10,000-#100,000</p>
+                  <input
+                    type="radio"
+                    name="priceRange"
+                    @click="onSelectPriceRange('51000to150000')"
+                  />
+                  <p>#51,000-#150,000</p>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
 

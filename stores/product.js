@@ -5,6 +5,7 @@ export const useProductsStore = defineStore("products", {
   state: () => ({
     products: [],
     currentCategory: [],
+    currentCategoryName: "ALL",
     isLoading: false,
     error: "",
     isInProductPage: false,
@@ -49,6 +50,9 @@ export const useProductsStore = defineStore("products", {
     toggleIsInProductPage() {
       this.isInProductPage = !this.isInProductPage;
     },
+    toggleCurrentCategoryName(category) {
+      this.currentCategoryName = category;
+    },
 
     setPriceRange(min, max) {
       this.priceRange = { min, max };
@@ -71,7 +75,10 @@ export const useProductsStore = defineStore("products", {
           break;
       }
     },
-    applyFilters() {
+    async applyFilters() {
+      //To reset the filter
+      await this.filterByCategory(this.currentCategoryName);
+
       let filtered;
       filtered = this.currentCategory.filter(
         (product) =>
@@ -80,6 +87,12 @@ export const useProductsStore = defineStore("products", {
       );
 
       this.currentCategory = filtered;
+    },
+
+    async clearProductFilter() {
+      this.priceRange = { min: 0, max: Infinity };
+
+      await this.filterByCategory(this.currentCategoryName);
     },
   },
 });
