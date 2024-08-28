@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { useNuxtApp } from "#app";
+import { useRouter } from "vue-router";
 
 export const useProductsStore = defineStore("products", {
   state: () => ({
@@ -93,6 +94,10 @@ export const useProductsStore = defineStore("products", {
       this.priceRange = { min: 0, max: Infinity };
 
       await this.filterByCategory(this.currentCategoryName);
+    },
+    navigateToProduct(productId) {
+      const router = useRouter();
+      router.push(`/products/${productId}`);
     },
   },
 });

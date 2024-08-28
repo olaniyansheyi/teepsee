@@ -153,7 +153,8 @@ const props = defineProps({
       <div
         v-for="product in props.currentCategory"
         :key="product.id"
-        class="text-secondary w-[45%] md:w-[40%] lg:w-[21%] h-[260px] bg-white rounded-lg py-5 sm:px-8 px-2 relative"
+        @click="productsStore.navigateToProduct(product.id)"
+        class="text-secondary w-[45%] md:w-[40%] lg:w-[21%] h-[260px] bg-white rounded-lg py-5 sm:px-8 px-2 relative cursor-pointer"
       >
         <div
           class="h-[50%] border-b-[#666666] border-b-[1px] flex justify-center items-center p-4"
