@@ -102,9 +102,11 @@ definePageMeta({
             {{ isInCart ? "Remove From Cart" : "Add To Cart" }}
           </button>
 
-          <button class="rounded-lg py-2 w-full sm:w-[48%] bg-primary">
+          <NuxtLink to="/checkout">
+            <button class="rounded-lg py-2 w-full sm:w-[48%] bg-primary">
             Checkout Now
           </button>
+          </NuxtLink>
         </div>
       </div>
     </div>

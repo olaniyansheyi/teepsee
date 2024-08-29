@@ -156,11 +156,13 @@ definePageMeta({
             APPLY
           </button>
         </div>
-        <button
-          class="sm:w-[80%] w-full mx-auto text-center bg-secondary text-white font-semibold rounded-lg py-2 mt-8 sm:mx-0"
-        >
-          Checkout
-        </button>
+        <NuxtLink to="/checkout">
+          <button
+            class="sm:w-[80%] w-full mx-auto text-center bg-secondary text-white font-semibold rounded-lg py-2 mt-8 sm:mx-0"
+          >
+            Checkout
+          </button>
+        </NuxtLink>
       </div>
     </div>
     <RecentProductList />
