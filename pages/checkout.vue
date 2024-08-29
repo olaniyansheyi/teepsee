@@ -1,19 +1,16 @@
 <script setup>
-import { useRouter } from "vue-router";
+import { useNuxtApp } from "#app";
 import { loadStripe } from "@stripe/stripe-js";
 import { useCartStore } from "~/stores/cart";
 
+const cartStore = useCartStore();
+
+const totalPriceCost = computed(() => cartStore.totalPriceCost);
+
 definePageMeta({
-  //   middleware: "auth",
   layout: "custom",
 });
 
-import { useNuxtApp } from "#app";
-import { navigateTo } from "nuxt/dist/app/composables/router";
-
-const { $toast } = useNuxtApp();
-
-const cartStore = useCartStore();
 const cartItems = cartStore.cart;
 const total = cartStore.totalProductsPrice;
 const isProcessing = ref(false);
@@ -21,7 +18,6 @@ const stripe = ref(null);
 const elements = ref(null);
 const card = ref(null);
 const clientSecret = ref(null);
-const router = useRouter();
 
 onMounted(async () => {
   const stripePublishableKey = useRuntimeConfig().public.stripePublishableKey;
@@ -69,49 +65,11 @@ const pay = async () => {
 <template>
   <div
     id="CheckoutPage"
-    class="container mx-auto p-4 text-white flex justify-center items-start lg:px-36 px-6"
+    class="container mx-auto p-4 text-secondary flex justify-center items-start lg:px-36 px-6"
   >
     <div
       class="my-10 flex justify-center items-center mx-auto sm:flex-nowrap lg:flex-nowrap gap-5 gap-x-20 flex-wrap"
     >
-      <form class="flex flex-col items-start justify-end gap-y-6 w-full">
-        <h4
-          class="text-center mx-auto font-semibold text-2xl text-accent tracking-wide"
-        >
-          Ready to order? Let go!
-        </h4>
-        <span class="flex flex-col">
-          <label class="font-normal text-lg text-accent tracking-wide">
-            Full Name
-          </label>
-          <input
-            v-model="name"
-            class="w-full text-primary py-2 mt-2 outline-none px-5 rounded-lg"
-            type="text"
-          />
-        </span>
-        <span class="flex flex-col">
-          <label class="font-normal text-lg text-accent tracking-wide">
-            Phoner Number
-          </label>
-          <input
-            v-model="phoneNo"
-            class="w-auto text-primary py-2 mt-2 outline-none px-5 rounded-lg"
-            type="number"
-          />
-        </span>
-        <span class="flex flex-col">
-          <label class="font-normal text-lg text-accent tracking-wide">
-            Address
-          </label>
-          <input
-            v-model="address"
-            class="w-auto text-primary py-2 mt-2 outline-none px-5 rounded-lg"
-            type="text"
-          />
-        </span>
-      </form>
-
       <div>
         <div v-if="cartItems.length === 0">
           <p>Your cart is empty.</p>
@@ -119,9 +77,9 @@ const pay = async () => {
         </div>
         <div v-else>
           <div class="mb-4">
-            <h2 class="text-2xl font-semibold my-4">Cart Items</h2>
+            <h1 class="text-2xl font-semibold my-4">Cart Items</h1>
 
-            <ul class="divide-y divide-yellow-500 border-b border-t px-5">
+            <ul class="divide-y divide-[#e6e3e3] border-b border-t px-5">
               <li
                 v-for="item in cartItems"
                 :key="item.id"
@@ -138,17 +96,19 @@ const pay = async () => {
             </ul>
           </div>
           <div class="mb-4">
-            <h2 class="text-xl font-semibold">Total: #{{ total }}</h2>
+            <h2 class="text-xl font-semibold">
+              Total: #{{ totalPriceCost }}.00
+            </h2>
           </div>
           <form @submit.prevent="pay">
             <div
               id="card-element"
-              class="mb-4 bg-white text-primary border-none p-4 mt-10 font-bold"
+              class="bg-[#e6e3e3] text-secondary border-none p-4 mt-10 font-bold"
             ></div>
             <p id="card-error" class="text-red-500"></p>
             <button
               type="submit"
-              class="text-primary bg-accent hover:bg-accent-hover px-5 py-3 font-semibold rounded-lg mt-3 flex"
+              class="text-white bg-secondary hover:bg-accent-hover px-5 py-3 font-semibold rounded-lg mt-3 flex"
               :disabled="isProcessing"
             >
               <span v-if="isProcessing">Processing...</span>
@@ -163,8 +123,8 @@ const pay = async () => {
 
 <style>
 #card-element {
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 5px;
+  border: 1px solid gray;
+  padding: 20px;
+  border-radius: 8px;
 }
 </style>
