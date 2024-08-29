@@ -40,12 +40,21 @@ definePageMeta({
   </div>
 
   <div
-    v-if="productsStore.currentCategory.length === 0"
     class="my-5 px-6 w-full flex justify-center items-center text-center tracking-wider text-secondary"
   >
-    <p>
+    <p
+      v-if="
+        productsStore.currentCategory.length === 0 &&
+        productsStore.priceRange.max !== Infinity
+      "
+    >
       Sorry! we do not have a product between the price range you entered, clear
       the filter to continue shopping!
+    </p>
+
+    <p v-if="productsStore.currentCategory.length === 0">
+      Sorry! products could not be fetched, Please check your internet
+      connection
     </p>
   </div>
 

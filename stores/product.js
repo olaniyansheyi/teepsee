@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
-import { useNuxtApp } from "#app";
-import { useRouter } from "vue-router";
+import { useNuxtApp, navigateTo } from "#app";
 
 export const useProductsStore = defineStore("products", {
   state: () => ({
@@ -30,7 +29,6 @@ export const useProductsStore = defineStore("products", {
         console.error("Unexpected error:", error);
         this.error = "An unexpected error occurred";
       } finally {
-        console.log("yo");
         this.isLoading = false;
       }
     },
@@ -96,8 +94,25 @@ export const useProductsStore = defineStore("products", {
       await this.filterByCategory(this.currentCategoryName);
     },
     navigateToProduct(productId) {
-      const router = useRouter();
-      router.push(`/products/${productId}`);
+      navigateTo(`/products/${productId}`);
+    },
+
+    getProductById(id) {
+      return this.products.find((product) => product.id === id);
+    },
+
+    increaseQuantity(productId) {
+      const product = this.getProductById(productId);
+      if (product) {
+        product.quantity = product.quantity + 1;
+      }
+    },
+
+    decreaseQuantity(productId) {
+      const product = this.getProductById(productId);
+      if (product && product.quantity > 1) {
+        product.quantity -= 1;
+      }
     },
   },
 });
