@@ -97,10 +97,6 @@ export const useProductsStore = defineStore("products", {
       navigateTo(`/products/${productId}`);
     },
 
-    getProductById(id) {
-      return this.products.find((product) => product.id === id);
-    },
-
     increaseQuantity(productId) {
       const product = this.getProductById(productId);
       if (product) {
@@ -113,6 +109,12 @@ export const useProductsStore = defineStore("products", {
       if (product && product.quantity > 1) {
         product.quantity -= 1;
       }
+    },
+  },
+
+  getters: {
+    getProductById: (state) => (id) => {
+      return state.products.find((product) => product.id === id);
     },
   },
 });

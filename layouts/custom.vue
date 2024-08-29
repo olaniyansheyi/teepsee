@@ -5,6 +5,10 @@ import Buy from "~/assets/icons/Buy.svg";
 import menuBlack from "~/assets/menuBlack.png";
 import { useMenuStore } from "~/stores/menu";
 
+import { useCartStore } from "~/stores/cart.js";
+
+const cartStore = useCartStore();
+
 const menuStore = useMenuStore();
 
 </script>
@@ -44,12 +48,12 @@ const menuStore = useMenuStore();
     <button class="px-5 py-1 bg-primary border-none rounded-md text-white lg:block hidden"> Sign Up</button>
     <div class="lg:hidden flex justify-center items-center gap-x-3 ">
         <img :src="searchBlack" alt="" @click="menuStore.handleToggleSearch" class="w-[28px]">
-       <div class="relative w-[28px]">
+       <NuxtLink to="/cart" class="relative w-[28px]">
         <img :src="Buy" alt="" class="w-[28px]"/>
         <div class="absolute w-[15px] h-[15px] rounded-full items-center justify-center flex bg-primary text-white top-[0] right-[0]">
-          <p class="text-[10px]">0</p>
+          <p class="text-[10px]">{{ cartStore.cartItemCount }}</p>
         </div>
-       </div>
+       </NuxtLink>
     </div>
   </div>
     </div>
