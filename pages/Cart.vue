@@ -167,4 +167,18 @@ definePageMeta({
     </div>
     <RecentProductList />
   </div>
+
+  <div
+    v-if="cartStore.cart.length === 0"
+    class="w-[90%] md:w-[60%] mx-auto bg-white rounded-xl px-6 py-10 text-center flex justify-center items-center gap-y-4 z-40 my-20 flex-col"
+  >
+    <h1 class="text-lg tracking-wide">Hey, you have no item in your cart</h1>
+    <NuxtLink to="/categories/all">
+      <button
+        class="py-4 px-8 rounded-lg outline-none bg-secondary text-white font-semibold"
+      >
+        Explore our drinks now!
+      </button>
+    </NuxtLink>
+  </div>
 </template>
