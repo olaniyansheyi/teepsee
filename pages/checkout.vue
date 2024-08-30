@@ -66,7 +66,7 @@ const pay = async () => {
     class="mx-auto text-secondary flex justify-center items-start px-4 w-full"
   >
     <div
-      class="my-10 flex justify-center gap-x-10 items-center mx-auto lg:flex-nowrap flex-wrap w-full"
+      class="my-10 flex justify-center gap-x-10 gap-y-5 items-center mx-auto lg:flex-nowrap flex-wrap w-full"
     >
       <div
         v-if="cartItems.length !== 0"
