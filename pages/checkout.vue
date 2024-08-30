@@ -1,14 +1,21 @@
 <script setup>
 import { loadStripe } from "@stripe/stripe-js";
+import { ref } from "vue";
 import { useCartStore } from "~/stores/cart";
+import { useOrderStore } from "~/stores/order";
 
 const cartStore = useCartStore();
+const orderStore = useOrderStore();
 
 const totalPriceCost = computed(() => cartStore.totalPriceCost);
 
 definePageMeta({
   layout: "custom",
 });
+
+const email = ref("");
+const phoneNumber = ref("");
+const address = ref("");
 
 const cartItems = cartStore.cart;
 const isProcessing = ref(false);
@@ -51,7 +58,20 @@ const pay = async () => {
     document.querySelector("#card-error").textContent = result.error.message;
     isProcessing.value = false;
   } else {
-    navigateTo("/faq");
+    const newOrder = {
+      email: email.value,
+      address: address.value,
+      phoneNumber: phoneNumber.value,
+      totalPriceCost: totalPriceCost.value,
+      status: "pending",
+      products: [...cartStore.cart],
+    };
+
+    const orderData = await orderStore.createOrder(newOrder);
+
+    if (orderData) {
+      navigateTo(`/my-order/${orderData.id}`);
+    }
   }
 
   isProcessing.value = false;
@@ -79,14 +99,16 @@ const pay = async () => {
             <label class="font-semibold block mt-5">Enter Address*</label>
             <div class="w-full relative">
               <input
+                v-model="address"
                 class="px-4 py-2 rounded-lg bg-[#e6e3e3] w-full mt-1 outline-none"
               />
             </div>
           </div>
           <div>
-            <label class="font-semibold block mt-5">Landmark*</label>
+            <label class="font-semibold block mt-5">Email*</label>
             <div class="w-full relative">
               <input
+                v-model="email"
                 class="px-4 py-2 rounded-lg bg-[#e6e3e3] w-full mt-1 outline-none"
               />
             </div>
@@ -95,6 +117,7 @@ const pay = async () => {
             <label class="font-semibold block mt-5">PhoneNumber*</label>
             <div class="w-full relative">
               <input
+                v-model="phoneNumber"
                 class="px-4 py-2 rounded-lg bg-[#e6e3e3] w-full mt-1 outline-none"
               />
             </div>
