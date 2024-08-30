@@ -19,7 +19,7 @@ onMounted(() => {
       <Menu v-if="menuStore.openMenu" />
       <RatingModal v-if="menuStore.showRatingModal" />
       <TrackingModal v-if="menuStore.showTrackingModal" />
-      <!-- <CheckoutModal /> -->
+      <CheckoutModal v-if="menuStore.showCheckoutModal" />
       <Spinner v-if="productsStore.isLoading" />
     </NuxtLayout>
   </div>

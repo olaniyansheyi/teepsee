@@ -6,6 +6,10 @@ import { useCartStore } from "~/stores/cart.js";
 
 const cartStore = useCartStore();
 
+import { useMenuStore } from "~/stores/menu.js";
+
+const menuStore = useMenuStore();
+
 const totalPriceCost = computed(() => cartStore.totalPriceCost);
 
 definePageMeta({
@@ -156,13 +160,13 @@ definePageMeta({
             APPLY
           </button>
         </div>
-        <NuxtLink to="/checkout">
-          <button
-            class="sm:w-[80%] w-full mx-auto text-center bg-secondary text-white font-semibold rounded-lg py-2 mt-8 sm:mx-0"
-          >
-            Checkout
-          </button>
-        </NuxtLink>
+
+        <button
+          @click="menuStore.handleToggleShowCheckoutModal"
+          class="sm:w-[80%] w-full mx-auto text-center bg-secondary text-white font-semibold rounded-lg py-2 mt-8 sm:mx-0"
+        >
+          Checkout
+        </button>
       </div>
     </div>
     <RecentProductList />

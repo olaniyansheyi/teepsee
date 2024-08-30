@@ -72,6 +72,20 @@ onMounted(async () => {
           </div>
         </div>
       </div>
+      <div class="w-full flex justify-start items-center flex-wrap mt-6 gap-4">
+        <NuxtLink to="/categories/all">
+          <button
+            class="py-3 px-6 rounded-lg font-semibold text-white bg-secondary"
+          >
+            Continue shopping!
+          </button>
+        </NuxtLink>
+        <button
+          class="py-3 px-8 rounded-lg font-semibold text-white bg-primary"
+        >
+          Contact for help!
+        </button>
+      </div>
     </div>
   </div>
 

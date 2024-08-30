@@ -8,6 +8,7 @@ export const useMenuStore = defineStore("menu", {
     showInfoModal: false,
     showRatingModal: false,
     showTrackingModal: false,
+    showCheckoutModal: false,
   }),
   actions: {
     handleToggleMenu() {
@@ -24,6 +25,9 @@ export const useMenuStore = defineStore("menu", {
     },
     handleToggleShowTrackingModal() {
       this.showTrackingModal = !this.showTrackingModal;
+    },
+    handleToggleShowCheckoutModal() {
+      this.showCheckoutModal = !this.showCheckoutModal;
     },
   },
 });

@@ -49,6 +49,10 @@ export const useCartStore = defineStore("cart", {
       }
       this.saveCartToLocalStorage();
     },
+    handleClearCart() {
+      this.cart = [];
+      this.saveCartToLocalStorage();
+    },
     saveCartToLocalStorage() {
       if (process.client) {
         localStorage.setItem("cart", JSON.stringify(this.cart));

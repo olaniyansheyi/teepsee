@@ -70,6 +70,7 @@ const pay = async () => {
     const orderData = await orderStore.createOrder(newOrder);
 
     if (orderData) {
+      cartStore.handleClearCart();
       navigateTo(`/my-order/${orderData.id}`);
     }
   }

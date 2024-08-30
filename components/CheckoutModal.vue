@@ -2,6 +2,10 @@
 import teepseeHalf from "~/assets/teepseeHalf.png";
 import teepseeBlack from "~/assets/teepseeBlack.png";
 import cancelBlack from "~/assets/cancelBlack.png";
+
+import { useMenuStore } from "~/stores/menu.js";
+
+const menuStore = useMenuStore();
 </script>
 <template>
   <div class="z-10 fixed inset-0 bg-black bg-opacity-50"></div>
@@ -25,13 +29,18 @@ import cancelBlack from "~/assets/cancelBlack.png";
       <p>Choose any of the options that suits you</p>
     </div>
     <button
+      @click="menuStore.handleToggleShowCheckoutModal"
       class="w-full text-center text-white bg-secondary rounded-md py-2 mt-2"
     >
       Login and Checkout
     </button>
-    <button class="w-full text-center text-white bg-primary rounded-md py-2">
-      Checkout without Login
-    </button>
+    <NuxtLink
+      to="/checkout"
+      @click="menuStore.handleToggleShowCheckoutModal"
+      class="w-full text-center text-white bg-primary rounded-md py-2"
+    >
+      <button>Checkout without Login</button>
+    </NuxtLink>
 
     <img :src="teepseeBlack" class="w-[6rem] mx-auto" alt="" />
   </div>
