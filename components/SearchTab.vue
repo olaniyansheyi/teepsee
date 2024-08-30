@@ -1,6 +1,9 @@
 <script setup>
 import cancel from "~/assets/cancel.png";
 import { useMenuStore } from "~/stores/menu";
+import { useProductsStore } from "~/stores/product";
+
+const productStore = useProductsStore();
 
 const menuStore = useMenuStore();
 </script>
@@ -17,13 +20,22 @@ const menuStore = useMenuStore();
         @click="menuStore.handleToggleSearch"
       />
     </div>
-    <input
-      type="text"
-      class="w-full rounded-full border-[3px] py-2 px-4 mt-5"
-      placeholder="Search Products"
-      name=""
-      id=""
-    />
-    <p>Search Products</p>
+    <form
+      @submit.prevent="
+        () => {
+          navigateTo('/search-result');
+          menuStore.handleToggleSearch();
+          productStore.clearSearchQuery();
+        }
+      "
+    >
+      <input
+        type="text"
+        class="w-full rounded-full border-[3px] py-2 px-4 mt-5"
+        placeholder="Search Products"
+        v-model="productStore.searchQuery"
+      />
+    </form>
+    <p class="text-secondary text-sm">Search Products By name or category</p>
   </div>
 </template>

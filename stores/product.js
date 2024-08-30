@@ -11,6 +11,8 @@ export const useProductsStore = defineStore("products", {
     isInProductPage: false,
     priceRange: { min: 0, max: Infinity },
     selectedPriceRange: null,
+    searchedProducts: [],
+    searchQuery: "",
   }),
   actions: {
     async getProducts() {
@@ -93,6 +95,7 @@ export const useProductsStore = defineStore("products", {
 
       await this.filterByCategory(this.currentCategoryName);
     },
+
     navigateToProduct(productId) {
       navigateTo(`/products/${productId}`);
     },
@@ -109,6 +112,32 @@ export const useProductsStore = defineStore("products", {
       if (product && product.quantity > 1) {
         product.quantity -= 1;
       }
+    },
+    async searchProducts(query) {
+      try {
+        this.isLoading = true;
+
+        const { $supabase } = useNuxtApp();
+        const { data, error } = await $supabase
+          .from("products")
+          .select("*")
+          .or(`name.ilike.%${query}%,category.ilike.%${query}%`);
+
+        if (error) {
+          console.log(error);
+        }
+
+        this.searchedProducts = data;
+        return data;
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    clearSearchQuery() {
+      this.searchQuery = "";
     },
   },
 
