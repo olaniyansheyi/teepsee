@@ -3,30 +3,41 @@ definePageMeta({
   layout: "custom",
 });
 
+import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useOrderStore } from "~/stores/order";
 
 const route = useRoute();
-
 const orderStore = useOrderStore();
 
 const orderId = route.params.id;
+const order = ref(null);
+
+const error = ref(null);
 
 onMounted(async () => {
-  await orderStore.getOrder(orderId);
+  try {
+    const data = await orderStore.getOrder(orderId);
+    if (data) {
+      order.value = data;
+    } else {
+      throw new Error("No order data returned.");
+    }
+  } catch (err) {
+    error.value = "Failed to load order data.";
+  }
 });
-
-const order = computed(() => orderStore.order);
-const isOrderEmpty = computed(
-  () => !order.value || Object.keys(order.value).length === 0
-);
-
-console.log(order.value);
 </script>
 
 <template>
+  <Spinner v-if="orderStore.isLoading" />
+
+  <div v-else-if="error" class="text-red-500">
+    {{ error }}
+  </div>
+
   <div
-    v-if="!isOrderEmpty"
+    v-else-if="order"
     class="px-4 my-5 flex gap-5 justify-center items-center w-full"
   >
     <div
@@ -37,33 +48,34 @@ console.log(order.value);
         class="flex flex-col gap-y-5 items-start justify-start mt-2 font-semibold"
       >
         <p>Items in the Order (Not Yet Delivered)</p>
-        <!-- <div
-          v-for="product in order.value.products"
+        <div
+          v-for="product in order.products"
           :key="product.id"
           class="flex gap-x-5 justify-start items-start md:w-[65%] lg:w-[55%]"
         >
           <div
-            class="w-[92px] h-[90px] rounded-lg bg-[#e6e3e3] flex justify-center items-center"
+            class="w-[100px] h-[90px] rounded-lg bg-[#e6e3e3] flex justify-center items-center"
           >
-            <img :src="product.image" class="w-[70%] h-[80%]" alt="" />
+            <img :src="product.image" class="w-[80%] h-[80%]" alt="" />
           </div>
           <div>
-            <p>{{ product.name }} and {{ product.quantity }} other drinks</p>
-            <h2 class="font-semibold text-sm">#50,000</h2>
+            <p>{{ product.name }} Quantity: {{ product.quantity }}</p>
+            <h2 class="font-semibold text-sm">#{{ product.price }}</h2>
             <p
               :class="
-                order.value.status === 'pending'
-                  ? 'text-primary'
-                  : 'text-green-400'
+                order.status === 'pending' ? 'text-primary' : 'text-green-400'
               "
               class="text-xm"
             >
-              {{ order.value.status }}
+              {{ order.status }}
             </p>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
-  <Spinner v-if="orderStore.isLoading" />
+
+  <div v-else>
+    <p>No order data available.</p>
+  </div>
 </template>

@@ -4,7 +4,7 @@ import { useNuxtApp } from "#app";
 export const useOrderStore = defineStore("order", {
   state: () => ({
     isLoading: false,
-    order: {},
+    order: null,
     error: false,
   }),
   actions: {
