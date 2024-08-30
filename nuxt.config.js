@@ -5,5 +5,13 @@ export default {
   vite: {
     assetsInclude: ["**/*.svg", "**/*.png"],
   },
+
+  runtimeConfig: {
+    public: {
+      stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
+    },
+    stripeSecretKey: process.env.STRIPE_SECRET_KEY,
+  },
+
   plugins: [{ src: "~/plugins/supabase.js", mode: "client" }],
 };

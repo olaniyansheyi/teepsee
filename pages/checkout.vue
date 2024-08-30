@@ -1,5 +1,4 @@
 <script setup>
-import { useNuxtApp } from "#app";
 import { loadStripe } from "@stripe/stripe-js";
 import { useCartStore } from "~/stores/cart";
 
@@ -12,7 +11,6 @@ definePageMeta({
 });
 
 const cartItems = cartStore.cart;
-const total = cartStore.totalProductsPrice;
 const isProcessing = ref(false);
 const stripe = ref(null);
 const elements = ref(null);
@@ -31,7 +29,7 @@ onMounted(async () => {
 
   const { clientSecret: secret } = await $fetch("/api/stripe/paymentintent", {
     method: "POST",
-    body: { amount: total },
+    body: { amount: totalPriceCost.value },
   });
   clientSecret.value = secret;
 
@@ -65,57 +63,88 @@ const pay = async () => {
 <template>
   <div
     id="CheckoutPage"
-    class="container mx-auto p-4 text-secondary flex justify-center items-start lg:px-36 px-6"
+    class="mx-auto text-secondary flex justify-center items-start px-4 w-full"
   >
     <div
-      class="my-10 flex justify-center items-center mx-auto sm:flex-nowrap lg:flex-nowrap gap-5 gap-x-20 flex-wrap"
+      class="my-10 flex justify-center gap-x-10 items-center mx-auto lg:flex-nowrap flex-wrap w-full"
     >
-      <div>
-        <div v-if="cartItems.length === 0">
-          <p>Your cart is empty.</p>
-          <NuxtLink to="/" class="text-blue-500">Go to Shop</NuxtLink>
-        </div>
-        <div v-else>
-          <div class="mb-4">
-            <h1 class="text-2xl font-semibold my-4">Cart Items</h1>
+      <div
+        v-if="cartItems.length !== 0"
+        class="py-12 px-4 rounded-lg bg-white w-full text-secondary tracking-wide sm:w-[45%]"
+      >
+        <h1 class="text-2xl font-semibold">Address</h1>
 
-            <ul class="divide-y divide-[#e6e3e3] border-b border-t px-5">
-              <li
-                v-for="item in cartItems"
-                :key="item.id"
-                class="py-3 space-y-1"
-              >
-                <div class="flex text-sm items-center justify-between gap-4">
-                  <p>
-                    <span class="font-bold">{{ item.quantity }}&times;</span
-                    >{{ item.name }}
-                  </p>
-                  <p class="font-bold">#{{ item.quantity * item.price }}.00</p>
-                </div>
-              </li>
-            </ul>
+        <div class="lg:w-[60%] w-full">
+          <div>
+            <label class="font-semibold block mt-5">Enter Address*</label>
+            <div class="w-full relative">
+              <input
+                class="px-4 py-2 rounded-lg bg-[#e6e3e3] w-full mt-1 outline-none"
+              />
+            </div>
           </div>
-          <div class="mb-4">
-            <h2 class="text-xl font-semibold">
-              Total: #{{ totalPriceCost }}.00
-            </h2>
+          <div>
+            <label class="font-semibold block mt-5">Landmark*</label>
+            <div class="w-full relative">
+              <input
+                class="px-4 py-2 rounded-lg bg-[#e6e3e3] w-full mt-1 outline-none"
+              />
+            </div>
           </div>
-          <form @submit.prevent="pay">
-            <div
-              id="card-element"
-              class="bg-[#e6e3e3] text-secondary border-none p-4 mt-10 font-bold"
-            ></div>
-            <p id="card-error" class="text-red-500"></p>
-            <button
-              type="submit"
-              class="text-white bg-secondary hover:bg-accent-hover px-5 py-3 font-semibold rounded-lg mt-3 flex"
-              :disabled="isProcessing"
-            >
-              <span v-if="isProcessing">Processing...</span>
-              <span v-else>Place Order</span>
-            </button>
-          </form>
+          <div>
+            <label class="font-semibold block mt-5">PhoneNumber*</label>
+            <div class="w-full relative">
+              <input
+                class="px-4 py-2 rounded-lg bg-[#e6e3e3] w-full mt-1 outline-none"
+              />
+            </div>
+          </div>
         </div>
+      </div>
+
+      <div
+        v-if="cartItems.length === 0"
+        class="font-semibold text-lg text-secondary"
+      >
+        <h1 class="text-xl">Your cart is empty.</h1>
+        <NuxtLink to="/categories/all">Go to Shop</NuxtLink>
+      </div>
+      <div v-else class="w-full sm:w-[45%]">
+        <div class="mb-4">
+          <h1 class="text-2xl font-semibold mb-4">Cart Items</h1>
+
+          <ul
+            class="divide-y divide-[#8f8484] border-b bg-[#e6e3e3] border-t px-5 rounded-lg"
+          >
+            <li v-for="item in cartItems" :key="item.id" class="py-3 space-y-1">
+              <div class="flex text-sm items-center justify-between gap-4">
+                <p>
+                  <span class="font-bold">{{ item.quantity }}&times;</span
+                  >{{ item.name }}
+                </p>
+                <p class="font-bold">#{{ item.quantity * item.price }}.00</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="mb-4">
+          <h2 class="text-xl font-semibold">Total: #{{ totalPriceCost }}.00</h2>
+        </div>
+        <form @submit.prevent="pay">
+          <div
+            id="card-element"
+            class="bg-[#e6e3e3] text-secondary border-none p-4 mt-6 font-bold"
+          ></div>
+          <p id="card-error" class="text-red-500"></p>
+          <button
+            type="submit"
+            class="text-white bg-secondary hover:bg-accent-hover px-5 py-3 font-semibold rounded-lg mt-3 flex z-50"
+            :disabled="isProcessing"
+          >
+            <span v-if="isProcessing">Processing...</span>
+            <span v-else>Place Order</span>
+          </button>
+        </form>
       </div>
     </div>
   </div>
