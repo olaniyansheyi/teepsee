@@ -1,12 +1,20 @@
 <script setup>
 import { useMenuStore } from "~/stores/menu";
 import { useProductsStore } from "~/stores/product.js";
+
+import { useAuthStore } from "~/stores/auth.js";
+
+const authStore = useAuthStore();
 const productsStore = useProductsStore();
 
 const menuStore = useMenuStore();
 
 onMounted(() => {
   productsStore.getProducts();
+});
+
+onMounted(async () => {
+  await authStore.getCurrentUser();
 });
 </script>
 

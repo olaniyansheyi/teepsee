@@ -1,5 +1,8 @@
 export default {
   modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt"],
+  build: {
+    transpile: ["vue-toastification"],
+  },
 
   css: ["~/assets/css/global.css"],
   vite: {
@@ -13,5 +16,8 @@ export default {
     stripeSecretKey: process.env.STRIPE_SECRET_KEY,
   },
 
-  plugins: [{ src: "~/plugins/supabase.js", mode: "client" }],
+  plugins: [
+    { src: "~/plugins/supabase.js", mode: "client" },
+    "~/plugins/vue-toastification.js",
+  ],
 };
