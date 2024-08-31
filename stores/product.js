@@ -12,7 +12,6 @@ export const useProductsStore = defineStore("products", {
     priceRange: { min: 0, max: Infinity },
     selectedPriceRange: null,
     searchedProducts: [],
-    searchQuery: "",
   }),
   actions: {
     async getProducts() {
@@ -134,10 +133,6 @@ export const useProductsStore = defineStore("products", {
       } finally {
         this.isLoading = false;
       }
-    },
-
-    clearSearchQuery() {
-      this.searchQuery = "";
     },
   },
 
