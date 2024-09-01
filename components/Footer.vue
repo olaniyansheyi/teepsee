@@ -35,9 +35,9 @@ import teepseeLogo from "~/assets/teepseeLogo.png";
         <div class="md:w-1/3">
           <h1 class="text-lg">SUPPORT</h1>
           <div class="mt-5">
-            <p class="mt-2">F.A.Q</p>
+            <NuxtLink to="/faq" class="mt-2">F.A.Q</NuxtLink>
             <p class="mt-2">Live chat</p>
-            <p class="mt-2">Track</p>
+            <NuxtLink to="/track-order" class="mt-2">Track</NuxtLink>
           </div>
         </div>
       </div>

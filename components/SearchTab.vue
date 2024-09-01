@@ -15,17 +15,17 @@ const handleSearch = async () => {
 
 <template>
   <div
-    class="w-[85%] mx-auto bg-white p-4 rounded-xl absolute top-5 left-[-50%] right-[-50%] flex flex-col gap-y-2 items-start md:hidden z-50"
+    class="w-[85%] mx-auto bg-white p-4 rounded-xl absolute top-5 left-[-50%] right-[-50%] flex flex-col gap-y-2 items-start lg:hidden z-50"
   >
     <div class="w-full h-full relative">
       <img
         :src="cancel"
-        class="w-[14px] absolute top-0 right-0"
+        class="w-[14px] absolute top-0 right-0 cursor-pointer"
         alt=""
         @click="menuStore.handleToggleSearch"
       />
     </div>
-    <form @submit.prevent="handleSearch">
+    <form @submit.prevent="handleSearch" class="w-full">
       <input
         type="text"
         class="w-full rounded-full border-[3px] py-2 px-4 mt-5"

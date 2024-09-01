@@ -6,6 +6,19 @@ import Setting from "~/assets/icons/Setting.svg";
 import Logout from "~/assets/icons/Logout.svg";
 import Location from "~/assets/icons/Location.svg";
 import Heart from "~/assets/icons/Heart.svg";
+import { useAuthStore } from "~/stores/auth.js";
+
+const authStore = useAuthStore();
+
+function handleGoToProfile() {
+  if (authStore.user) {
+    navigateTo("/dashboard/profile");
+  } else {
+    navigateTo("/login");
+  }
+
+  menuStore.handleToggleMenu();
+}
 </script>
 
 <template>
@@ -27,25 +40,30 @@ import Heart from "~/assets/icons/Heart.svg";
         >
           <div class="flex items-center justify-center gap-x-6">
             <img :src="AddUser" alt="" />
-            <p>Profile</p>
+            <p @click="handleGoToProfile">Profile</p>
           </div>
           <div class="flex items-center justify-center gap-x-6">
             <img :src="Bag" alt="" />
-            <p>My Orders</p>
+            <NuxtLink to="/dashboard/order-history">My Orders</NuxtLink>
           </div>
           <div class="flex items-center justify-center gap-x-6">
             <img :src="Heart" alt="" />
-            <p>Favourites</p>
+            <NuxtLink to="/dashboard/favorites">Favourites</NuxtLink>
           </div>
           <div class="flex items-center justify-center gap-x-6">
             <img :src="Setting" alt="" />
-            <p>Settings</p>
+            <NuxtLink to="/dashboard/setting/change-password"
+              >Settings</NuxtLink
+            >
           </div>
           <div class="flex items-center justify-center gap-x-6">
             <img :src="Location" alt="" />
-            <p>Location</p>
+            <NuxtLink to="/dashboard/address">Location</NuxtLink>
           </div>
-          <div class="flex items-center justify-center gap-x-6">
+          <div
+            @click="authStore.Logout"
+            class="flex items-center justify-center gap-x-6"
+          >
             <img :src="Logout" alt="" />
             <p>Logout</p>
           </div>

@@ -1,4 +1,10 @@
-<script setup></script>
+<script setup>
+const orderQuery = ref("");
+
+function handleSubmitOrderQuery() {
+  navigateTo(`/my-order/${orderQuery.value}`);
+}
+</script>
 
 <template>
   <div
@@ -12,20 +18,26 @@
       <p class="mx-auto">
         Please provide your tracking number to know the status of your package
       </p>
-      <div class="sm:w-full flex justify-center items-center my-3">
+      <form
+        @submit.prevent="handleSubmitOrderQuery"
+        class="sm:w-full flex justify-center items-center my-3 max-w-[90%] mx-auto"
+      >
         <input
+          v-model="orderQuery"
+          required
           type="text"
           placeholder="Enter tracking code"
-          class="outline-none py-4 sm:px-5 px-3 rounded-s-lg bg-[#e6e3e3]"
+          class="outline-none py-3 sm:px-5 px-3 rounded-s-lg bg-[#e6e3e3] w-[10rem] sm:w-auto"
           name=""
           id=""
         />
         <button
-          class="whitespace-nowrap py-4 px-4 sm:px-6 text-md font-semibold rounded-e-lg bg-secondary text-white"
+          type="submit"
+          class="whitespace-nowrap py-4 px-3 sm:px-6 text-md font-semibold rounded-e-lg bg-secondary text-white text-xs"
         >
           Track order
         </button>
-      </div>
+      </form>
     </div>
     <div class="relative">
       <HeroHeader />

@@ -1,6 +1,7 @@
 <script setup>
 definePageMeta({
   layout: "custom",
+  middleware: "auth",
 });
 
 const passwordVisible = ref(false);

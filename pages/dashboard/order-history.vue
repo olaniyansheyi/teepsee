@@ -2,6 +2,7 @@
 import product1 from "~/assets/product1.png";
 definePageMeta({
   layout: "custom",
+  middleware: "auth",
 });
 </script>
 

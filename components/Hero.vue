@@ -9,11 +9,13 @@
         <p class="font-normal mt-2 md:mt-4 text-md">
           Wine,Liquor,ice,Mixers and some other cool stuff? We got it.
         </p>
-        <button
-          class="bg-white border-none py-2 px-8 text-black rounded-lg mt-4 md:mt-5 font-semibold"
-        >
-          Get Started
-        </button>
+        <NuxtLink to="/categories/all">
+          <button
+            class="bg-white border-none py-2 px-8 text-black rounded-lg mt-4 md:mt-5 font-semibold"
+          >
+            Get Started
+          </button>
+        </NuxtLink>
       </div>
     </div>
   </div>

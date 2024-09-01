@@ -5,10 +5,18 @@ import unknownUser from "~/assets/unknownUser.png";
 import AddUser from "~/assets/AddUser.png";
 import Bag from "~/assets/icons/Bag.svg";
 import Heart from "~/assets/icons/Heart.svg";
+import Setting from "~/assets/icons/Setting.svg";
+import Logout from "~/assets/icons/Logout.svg";
+import Location from "~/assets/icons/Location.svg";
 import { useProductsStore } from "~/stores/product.js";
+
+import { useAuthStore } from "~/stores/auth.js";
+
+const authStore = useAuthStore();
 const productsStore = useProductsStore();
 
 const menuStore = useMenuStore();
+const { $toast } = useNuxtApp();
 
 const minPrice = ref("");
 const maxPrice = ref("");
@@ -23,6 +31,27 @@ function onSetPriceRange() {
 function onSelectPriceRange(range) {
   productsStore.selectPriceRange(range);
   menuStore.handleToggleMenu();
+}
+
+function handleGoToProfile() {
+  if (authStore.user) {
+    navigateTo("/dashboard/profile");
+  } else {
+    navigateTo("/login");
+  }
+
+  menuStore.handleToggleMenu();
+}
+
+function handleGoToRoute(route) {
+  menuStore.handleToggleMenu();
+  navigateTo(route);
+}
+
+async function handleLogout() {
+  await authStore.logout();
+
+  if (!authStore.user) $toast.success("You successfully logged out!");
 }
 </script>
 
@@ -47,21 +76,76 @@ function onSelectPriceRange(range) {
           >
             <div class="flex items-center justify-center gap-x-6">
               <img :src="AddUser" alt="" />
-              <p>Profile</p>
+              <p @click="handleGoToProfile" class="cursor-pointer">Profile</p>
             </div>
             <div class="flex items-center justify-center gap-x-6">
               <img :src="Bag" alt="" />
-              <p>My Orders</p>
+              <p @click="handleGoToRoute('track-order')">Track Orders</p>
             </div>
             <div class="flex items-center justify-center gap-x-6">
               <img :src="Heart" alt="" />
-              <p>Favourites</p>
+              <p @click="handleGoToRoute('/dashboard/favorites')">Favourites</p>
+            </div>
+            <div class="flex items-center justify-center gap-x-6">
+              <img :src="Heart" alt="" />
+              <p @click="handleGoToRoute('/faq')">F.A.Q</p>
+            </div>
+            <div class="flex items-center justify-center gap-x-6">
+              <img :src="Bag" alt="" />
+              <p @click="handleGoToRoute('/dashboard/order-history')">
+                My Orders
+              </p>
+            </div>
+            <div class="flex items-center justify-center gap-x-6">
+              <img :src="Setting" alt="" />
+              <p @click="handleGoToRoute('/dashboard/setting/change-password')">
+                Settings
+              </p>
+            </div>
+            <div class="flex items-center justify-center gap-x-6">
+              <img :src="Location" alt="" />
+              <p @click="handleGoToRoute('/dashboard/address')">Location</p>
+            </div>
+            <div
+              v-if="authStore.user"
+              @click="handleLogout"
+              class="flex items-center justify-center gap-x-6"
+            >
+              <img :src="Logout" alt="" />
+              <p>Logout</p>
+              <MiniSpinner
+                class="w-[16px] ms-[-15px] pt-2"
+                v-if="authStore.loading"
+              />
             </div>
           </div>
 
-          <div class="flex flex-col items-start gap-y-4 text-white">
-            <button class="bg-secondary rounded-lg py-3 w-[9rem]">Login</button>
-            <button class="bg-primary rounded-lg py-3 w-[9rem]">Sign Up</button>
+          <div
+            v-if="!authStore.user"
+            class="flex flex-col items-start gap-y-4 text-white"
+          >
+            <button
+              @click="
+                () => {
+                  menuStore.handleToggleMenu();
+                  navigateTo('/login');
+                }
+              "
+              class="bg-secondary rounded-lg py-3 w-[9rem]"
+            >
+              Login
+            </button>
+            <button
+              @click="
+                () => {
+                  menuStore.handleToggleMenu();
+                  navigateTo('/signup');
+                }
+              "
+              class="bg-primary rounded-lg py-3 w-[9rem]"
+            >
+              Sign Up
+            </button>
           </div>
           <div
             v-if="productsStore.isInProductPage"

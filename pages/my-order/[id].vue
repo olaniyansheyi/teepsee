@@ -21,10 +21,13 @@ onMounted(async () => {
     if (data) {
       order.value = data;
     } else {
-      throw new Error("No order data returned.");
+      throw new Error(
+        "could not find your product ordered, please patiently check the orderId and try again."
+      );
     }
   } catch (err) {
-    error.value = "Failed to load order data.";
+    error.value =
+      "could not find your product ordered, please patiently check the orderId and try again.";
   }
 });
 </script>
@@ -32,8 +35,11 @@ onMounted(async () => {
 <template>
   <Spinner v-if="orderStore.isLoading" />
 
-  <div v-else-if="error" class="text-red-500">
-    {{ error }}
+  <div
+    v-else-if="error"
+    class="text-red-500 h-[80vh] justify-center items-center flex px-4"
+  >
+    <h1 class="font-semibold text-lg">{{ error }}</h1>
   </div>
 
   <div

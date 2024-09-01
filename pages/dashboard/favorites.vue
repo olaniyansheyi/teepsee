@@ -5,6 +5,7 @@ import hennessey2 from "~/assets/hennessey2.png";
 import Heart from "~/assets/icons/Heart.svg";
 definePageMeta({
   layout: "custom",
+  middleware: "auth",
 });
 </script>
 
