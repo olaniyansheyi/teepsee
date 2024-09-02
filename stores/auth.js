@@ -59,7 +59,6 @@ export const useAuthStore = defineStore("auth", {
         const { error } = response;
         if (error) throw error;
         this.user = null;
-     
       } catch (error) {
         this.error = error.message;
       } finally {
@@ -88,6 +87,13 @@ export const useAuthStore = defineStore("auth", {
         this.loading = false;
       }
       return response;
+    },
+    async fetchUser() {
+      const { $supabase } = useNuxtApp();
+      const {
+        data: { user },
+      } = await $supabase.auth.getUser();
+      this.user = user;
     },
   },
 });

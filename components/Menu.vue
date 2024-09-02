@@ -80,7 +80,7 @@ async function handleLogout() {
             </div>
             <div class="flex items-center justify-center gap-x-6">
               <img :src="Bag" alt="" />
-              <p @click="handleGoToRoute('track-order')">Track Orders</p>
+              <p @click="handleGoToRoute('/track-order')">Track Orders</p>
             </div>
             <div class="flex items-center justify-center gap-x-6">
               <img :src="Heart" alt="" />

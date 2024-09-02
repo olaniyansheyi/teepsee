@@ -1,5 +1,21 @@
 <script setup>
-import product1 from "~/assets/product1.png";
+import { useOrderStore } from "~/stores/order";
+import { useAuthStore } from "~/stores/auth";
+const orderStore = useOrderStore();
+const authStore = useAuthStore();
+
+const orders = ref({});
+
+onMounted(async () => {
+  await authStore.fetchUser();
+
+  if (authStore.user) {
+    orders.value = await orderStore.fetchUserOrders(authStore.user.id);
+  }
+});
+
+const products = orderStore.userOrders.flatMap((order) => order.products);
+
 definePageMeta({
   layout: "custom",
   middleware: "auth",
@@ -17,60 +33,19 @@ definePageMeta({
         <h1 class="text-2xl font-semibold">Order History</h1>
         <div class="flex flex-col gap-y-5 items-start justify-start mt-6">
           <div
+            v-for="product in products"
+            :key="product.id"
             class="flex gap-x-5 justify-start items-start md:w-[65%] lg:w-[55%]"
           >
             <div
               class="w-[92px] h-[90px] rounded-lg bg-[#e6e3e3] flex justify-center items-center"
             >
-              <img :src="product1" class="w-[70%] h-[80%]" alt="" />
+              <img :src="product.image" class="w-[70%] h-[80%]" alt="" />
             </div>
             <div>
-              <p>Champagne Montevideo and 4 other drinks</p>
-              <h2 class="font-semibold text-sm">#50,000</h2>
-              <p class="text-green-500 text-xm">Delivered</p>
-            </div>
-          </div>
-          <p>Items in the Order</p>
-          <div
-            class="flex gap-x-5 justify-start items-start md:w-[65%] lg:w-[55%]"
-          >
-            <div
-              class="w-[92px] h-[90px] rounded-lg bg-[#e6e3e3] flex justify-center items-center"
-            >
-              <img :src="product1" class="w-[70%] h-[80%]" alt="" />
-            </div>
-            <div>
-              <p>Champagne Montevideo and 4 other drinks</p>
-              <h2 class="font-semibold text-sm">#50,000</h2>
-              <p class="text-primary text-xm">Pending</p>
-            </div>
-          </div>
-          <div
-            class="flex gap-x-5 justify-start items-start md:w-[65%] lg:w-[55%]"
-          >
-            <div
-              class="w-[92px] h-[90px] rounded-lg bg-[#e6e3e3] flex justify-center items-center"
-            >
-              <img :src="product1" class="w-[70%] h-[80%]" alt="" />
-            </div>
-            <div>
-              <p>Champagne Montevideo and 4 other drinks</p>
-              <h2 class="font-semibold text-sm">#50,000</h2>
-              <p class="text-primary text-xm">Pending</p>
-            </div>
-          </div>
-          <div
-            class="flex gap-x-5 justify-start items-start md:w-[65%] lg:w-[55%]"
-          >
-            <div
-              class="w-[92px] h-[90px] rounded-lg bg-[#e6e3e3] flex justify-center items-center"
-            >
-              <img :src="product1" class="w-[70%] h-[80%]" alt="" />
-            </div>
-            <div>
-              <p>Champagne Montevideo and 4 other drinks</p>
-              <h2 class="font-semibold text-sm">#50,000</h2>
-              <p class="text-primary text-xm">Pending</p>
+              <p>{{ product.name }}</p>
+              <h2 class="font-semibold text-sm">#{{ product.price }}</h2>
+              <p class="text-xm text-primary">pending</p>
             </div>
           </div>
         </div>

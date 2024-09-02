@@ -13,6 +13,7 @@ export const useProductsStore = defineStore("products", {
     selectedPriceRange: null,
     searchedProducts: [],
     recentlyViewedProducts: [],
+    favoriteProducts: [],
   }),
   actions: {
     async getProducts() {
@@ -193,6 +194,31 @@ export const useProductsStore = defineStore("products", {
       this.recentlyViewedProducts = this.products.filter((product) =>
         recentlyViewed.includes(product.uuid)
       );
+    },
+    async fetchFavoriteProducts(userId) {
+      try {
+        this.isLoading = true;
+
+        const { $supabase } = useNuxtApp();
+        const { data, error } = await $supabase
+          .from("products")
+          .select("*")
+          .eq("user_id", userId)
+          .eq("favorite", true);
+
+        if (error) {
+          console.error(error);
+          return [];
+        }
+
+        this.favoriteProducts = data || [];
+        return this.favoriteProducts;
+      } catch (error) {
+        console.error(error);
+        return [];
+      } finally {
+        this.isLoading = false;
+      }
     },
   },
 

@@ -68,6 +68,7 @@ const pay = async () => {
       totalPriceCost: totalPriceCost.value,
       status: "pending",
       products: [...cartStore.cart],
+      user_id: authStore.user.id,
     };
 
     const orderData = await orderStore.createOrder(newOrder);
