@@ -71,7 +71,7 @@ const pay = async () => {
 
     if (orderData) {
       cartStore.handleClearCart();
-      navigateTo(`/my-order/${orderData.id}`);
+      navigateTo(`/my-order/${orderData.uuid}`);
     }
   }
 

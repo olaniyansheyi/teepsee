@@ -19,6 +19,12 @@ function handleGoToProfile() {
 
   menuStore.handleToggleMenu();
 }
+
+async function handleLogout() {
+  await authStore.logout();
+
+  if (!authStore.user) $toast.success("You successfully logged out!");
+}
 </script>
 
 <template>
@@ -66,6 +72,10 @@ function handleGoToProfile() {
           >
             <img :src="Logout" alt="" />
             <p>Logout</p>
+            <MiniSpinner
+              class="w-[16px] ms-[-15px] pt-2"
+              v-if="authStore.loading"
+            />
           </div>
         </div>
       </div>

@@ -53,7 +53,8 @@ onMounted(async () => {
       <div
         class="flex flex-col gap-y-5 items-start justify-start mt-2 font-semibold"
       >
-        <p>Items in the Order (Not Yet Delivered)</p>
+        <p>Your OrderId: [{{ order.uuid }}]</p>
+
         <div
           v-for="product in order.products"
           :key="product.id"

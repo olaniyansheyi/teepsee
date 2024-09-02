@@ -15,7 +15,7 @@ export const useOrderStore = defineStore("order", {
         const { data, error } = await $supabase
           .from("order")
           .insert([newOrder])
-          .select("id")
+          .select("uuid")
           .single();
 
         if (error) {
@@ -37,7 +37,7 @@ export const useOrderStore = defineStore("order", {
         const { data, error } = await $supabase
           .from("order")
           .select("*")
-          .eq("id", currentOrderId)
+          .eq("uuid", currentOrderId)
           .single();
 
         if (error || !data) {
