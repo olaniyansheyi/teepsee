@@ -23,7 +23,7 @@ const handleSearch = async () => {
 <template>
   <div class="pt-5 px-4 sm:px-8 pb-16">
     <div class="text-secondary flex justify-between items-center md:gap-x-5">
-      <NuxtLink to="/" class="w-[5.8rem] md:w-[16%] lg:w-[10%]">
+      <div class="w-[5.8rem] md:w-[16%] lg:w-[10%]">
         <img :src="teepseeBlack" alt="" class="hidden lg:block" />
         <img
           :src="menuBlack"
@@ -31,7 +31,7 @@ const handleSearch = async () => {
           alt=""
           @click="menuStore.handleToggleMenu"
         />
-      </NuxtLink>
+      </div>
       <div class="hidden lg:flex justify-center gap-x-6 items-center w-auto">
         <form @submit.prevent="handleSearch" class="relative text-secondary">
           <input

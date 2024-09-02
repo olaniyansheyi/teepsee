@@ -7,6 +7,7 @@ export const useProductsStore = defineStore("products", {
     currentCategory: [],
     currentCategoryName: "ALL",
     isLoading: false,
+    isLinking: false,
     error: "",
     isInProductPage: false,
     priceRange: { min: 0, max: Infinity },
@@ -132,6 +133,35 @@ export const useProductsStore = defineStore("products", {
         console.log(error);
       } finally {
         this.isLoading = false;
+      }
+    },
+
+    async toggleFavorite(productId) {
+      try {
+        this.isLinking = true;
+        const { $supabase } = useNuxtApp();
+        const product = this.products.find((p) => p.uuid === productId);
+
+        const updateFavoriteStatus = !product.favorite;
+
+        const { data, error } = await $supabase
+          .from("products")
+          .update({ favorite: updateFavoriteStatus })
+          .eq("uuid", productId)
+          .select("favorite")
+          .single();
+
+        if (error) {
+          throw new Error("Could not update the favorite status");
+        }
+
+        this.isLinking = false;
+
+        product.favorite = data.favorite;
+
+        return product.favorite;
+      } catch (error) {
+        this.error = error.message;
       }
     },
   },

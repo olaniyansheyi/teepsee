@@ -4,11 +4,14 @@ import unknownUser from "~/assets/unknownUser.png";
 import AddUser from "~/assets/AddUser.png";
 import Bag from "~/assets/icons/Bag.svg";
 import Heart from "~/assets/icons/Heart.svg";
+import heartRed from "~/assets/heartRed.png";
 import { useProductsStore } from "~/stores/product.js";
+import blackSpinner from "~/assets/blackSpinner.png";
 const productsStore = useProductsStore();
 
 const minPrice = ref("");
 const maxPrice = ref("");
+const isLiking = ref(new Set());
 
 function onSetPriceRange() {
   const min = parseFloat(minPrice.value) || 0;
@@ -21,6 +24,16 @@ function onSetPriceRange() {
 function onSelectPriceRange(range) {
   productsStore.selectPriceRange(range);
 }
+
+const toggleFavorite = async (product) => {
+  isLiking.value.add(product.uuid);
+
+  const updateFavoriteStatus = await productsStore.toggleFavorite(product.uuid);
+  if (product) {
+    product.favorite = updateFavoriteStatus;
+    isLiking.value.delete(product.uuid);
+  }
+};
 
 const props = defineProps({
   currentCategory: {
@@ -170,8 +183,13 @@ const props = defineProps({
           </span>
           <h2 class="font-semibold text-md">#{{ product.price }}</h2>
         </div>
-        <div class="w-[25px] absolute top-3 right-4">
-          <img :src="Heart" alt="" />
+        <div
+          class="w-[25px] absolute top-3 right-4"
+          @click.stop="toggleFavorite(product)"
+        >
+          <img v-if="isLiking.has(product.uuid)" :src="blackSpinner" alt="" />
+
+          <img v-else :src="product.favorite ? heartRed : Heart" alt="" />
         </div>
       </div>
     </div>

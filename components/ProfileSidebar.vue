@@ -67,7 +67,7 @@ async function handleLogout() {
             <NuxtLink to="/dashboard/address">Location</NuxtLink>
           </div>
           <div
-            @click="authStore.Logout"
+            @click="handleLogout"
             class="flex items-center justify-center gap-x-6"
           >
             <img :src="Logout" alt="" />
