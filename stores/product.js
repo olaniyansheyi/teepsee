@@ -12,6 +12,7 @@ export const useProductsStore = defineStore("products", {
     priceRange: { min: 0, max: Infinity },
     selectedPriceRange: null,
     searchedProducts: [],
+    recentlyViewedProducts: [],
   }),
   actions: {
     async getProducts() {
@@ -96,6 +97,7 @@ export const useProductsStore = defineStore("products", {
     },
 
     navigateToProduct(productId) {
+      this.addProductToRecentlyViewed(productId);
       navigateTo(`/products/${productId}`);
     },
 
@@ -162,6 +164,27 @@ export const useProductsStore = defineStore("products", {
       } catch (error) {
         this.error = error.message;
       }
+    },
+
+    addProductToRecentlyViewed(productId) {
+      let recentlyViewed =
+        JSON.parse(localStorage.getItem("recentlyViewedProducts")) || [];
+
+      if (!recentlyViewed.includes(productId)) {
+        recentlyViewed.push(productId);
+        localStorage.setItem(
+          "recentlyViewedProducts",
+          JSON.stringify(recentlyViewed)
+        );
+      }
+    },
+
+    fetchRecentlyViewedProducts() {
+      const recentlyViewed =
+        JSON.parse(localStorage.getItem("recentlyViewedProducts")) || [];
+      this.recentlyViewedProducts = this.products.filter((product) =>
+        recentlyViewed.includes(product.uuid)
+      );
     },
   },
 
