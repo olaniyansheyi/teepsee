@@ -4,6 +4,10 @@ import cancel from "~/assets/cancel.png";
 
 import { useCartStore } from "~/stores/cart.js";
 
+import { useAuthStore } from "~/stores/auth.js";
+
+const authStore = useAuthStore();
+
 const cartStore = useCartStore();
 
 import { useMenuStore } from "~/stores/menu.js";
@@ -11,6 +15,14 @@ import { useMenuStore } from "~/stores/menu.js";
 const menuStore = useMenuStore();
 
 const totalPriceCost = computed(() => cartStore.totalPriceCost);
+
+function handleCheckAuth() {
+  if (authStore.user) {
+    navigateTo("/checkout");
+  } else {
+    menuStore.handleToggleShowCheckoutModal();
+  }
+}
 
 definePageMeta({
   layout: "custom",
@@ -162,7 +174,7 @@ definePageMeta({
         </div>
 
         <button
-          @click="menuStore.handleToggleShowCheckoutModal"
+          @click="handleCheckAuth"
           class="sm:w-[80%] w-full mx-auto text-center bg-secondary text-white font-semibold rounded-lg py-2 mt-8 sm:mx-0"
         >
           Checkout

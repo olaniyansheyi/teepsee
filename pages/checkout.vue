@@ -3,6 +3,9 @@ import { loadStripe } from "@stripe/stripe-js";
 import { ref } from "vue";
 import { useCartStore } from "~/stores/cart";
 import { useOrderStore } from "~/stores/order";
+import { useAuthStore } from "~/stores/auth.js";
+
+const authStore = useAuthStore();
 
 const cartStore = useCartStore();
 const orderStore = useOrderStore();
@@ -76,8 +79,6 @@ const pay = async () => {
   }
 
   isProcessing.value = false;
-
-  console.log("payment successfull: order successfully placed!");
 };
 </script>
 
@@ -131,7 +132,9 @@ const pay = async () => {
         class="font-semibold text-lg text-secondary"
       >
         <h1 class="text-xl">Your cart is empty.</h1>
-        <NuxtLink to="/categories/all">Go to Shop</NuxtLink>
+        <NuxtLink to="/categories/all">
+          <button>Go to Shop</button>
+        </NuxtLink>
       </div>
       <div v-else class="w-full sm:w-[45%]">
         <div class="mb-4">

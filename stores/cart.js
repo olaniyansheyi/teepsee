@@ -22,17 +22,18 @@ export const useCartStore = defineStore("cart", {
         quantity: currentProduct.quantity,
         price: currentProduct.price,
         category: currentProduct.category,
+        uuid: currentProduct.uuid,
       };
       this.cart.push(newItem);
       this.saveCartToLocalStorage();
     },
     handleDeleteFromCart(productId) {
-      this.cart = this.cart.filter((item) => item.id !== productId);
+      this.cart = this.cart.filter((item) => item.uuid !== productId);
       this.saveCartToLocalStorage();
     },
 
     isInCart(productId) {
-      return this.cart?.some((item) => item.id === productId);
+      return this.cart?.some((item) => item.uuid === productId);
     },
     increaseQuantity(productId) {
       const item = this.cart.find((item) => item.id === productId);

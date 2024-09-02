@@ -6,6 +6,11 @@ import cancelBlack from "~/assets/cancelBlack.png";
 import { useMenuStore } from "~/stores/menu.js";
 
 const menuStore = useMenuStore();
+
+function handleGoToRoute(route) {
+  menuStore.handleToggleShowCheckoutModal();
+  navigateTo(route);
+}
 </script>
 <template>
   <div class="z-10 fixed inset-0 bg-black bg-opacity-50"></div>
@@ -14,6 +19,7 @@ const menuStore = useMenuStore();
   >
     <div class="relative w-full h-full pb-20">
       <img
+        @click="menuStore.handleToggleShowCheckoutModal"
         :src="cancelBlack"
         class="absolute top-5 right-0 w-[20px] cursor-pointer"
         alt=""
@@ -29,18 +35,17 @@ const menuStore = useMenuStore();
       <p>Choose any of the options that suits you</p>
     </div>
     <button
-      @click="menuStore.handleToggleShowCheckoutModal"
+      @click="handleGoToRoute('/login')"
       class="w-full text-center text-white bg-secondary rounded-md py-2 mt-2"
     >
       Login and Checkout
     </button>
-    <NuxtLink
-      to="/checkout"
-      @click="menuStore.handleToggleShowCheckoutModal"
+    <button
+      @click="handleGoToRoute('/checkout')"
       class="w-full text-center text-white bg-primary rounded-md py-2"
     >
       <button>Checkout without Login</button>
-    </NuxtLink>
+    </button>
 
     <img :src="teepseeBlack" class="w-[6rem] mx-auto" alt="" />
   </div>

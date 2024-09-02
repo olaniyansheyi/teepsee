@@ -1,14 +1,18 @@
 <script setup>
 import { useProductsStore } from "~/stores/product.js";
 import { useCartStore } from "~/stores/cart.js";
+import { useAuthStore } from "~/stores/auth.js";
+import { useMenuStore } from "~/stores/menu.js";
 import { useRoute } from "vue-router";
 import { computed } from "vue";
 
 const productStore = useProductsStore();
 const cartStore = useCartStore();
+const authStore = useAuthStore();
+const menuStore = useMenuStore();
 
 const route = useRoute();
-const productId = Number(route.params.id);
+const productId = route.params.id;
 
 const product = ref(null);
 const loading = ref(true);
@@ -39,6 +43,14 @@ function handleCartAction() {
     cartStore.handleDeleteFromCart(productId);
   } else {
     cartStore.handleAddToCart(product.value);
+  }
+}
+
+function handleCheckAuth() {
+  if (authStore.user) {
+    navigateTo("/checkout");
+  } else {
+    menuStore.handleToggleShowCheckoutModal();
   }
 }
 
@@ -102,12 +114,12 @@ definePageMeta({
             {{ isInCart ? "Remove From Cart" : "Add To Cart" }}
           </button>
 
-          <NuxtLink
-            to="/checkout"
+          <button
+            @click="handleCheckAuth"
             class="rounded-lg py-2 w-full sm:w-[48%] bg-primary flex justify-center items-center"
           >
-            <button class="w-[80%] mx-auto">Checkout Now</button>
-          </NuxtLink>
+            Checkout Now
+          </button>
         </div>
       </div>
     </div>

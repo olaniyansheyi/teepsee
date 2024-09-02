@@ -153,7 +153,7 @@ const props = defineProps({
       <div
         v-for="product in props.currentCategory"
         :key="product.id"
-        @click="productsStore.navigateToProduct(product.id)"
+        @click="productsStore.navigateToProduct(product.uuid)"
         class="text-secondary w-[45%] md:w-[40%] lg:w-[21%] h-[260px] bg-white rounded-lg py-5 sm:px-8 px-2 relative cursor-pointer"
       >
         <div
