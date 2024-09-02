@@ -52,7 +52,12 @@ definePageMeta({
       the filter to continue shopping!
     </p>
 
-    <p v-if="productsStore.currentCategory.length === 0">
+    <p
+      v-if="
+        productsStore.currentCategory.length === 0 &&
+        productsStore.priceRange.max === Infinity
+      "
+    >
       Sorry! products could not be fetched, Please check your internet
       connection
     </p>

@@ -39,7 +39,6 @@ definePageMeta({
     </button>
   </div>
 
-
   <div
     class="my-5 px-6 w-full flex justify-center items-center text-center tracking-wider text-secondary"
   >
@@ -53,7 +52,12 @@ definePageMeta({
       the filter to continue shopping!
     </p>
 
-    <p v-if="productsStore.currentCategory.length === 0">
+    <p
+      v-if="
+        productsStore.currentCategory.length === 0 &&
+        productsStore.priceRange.max === Infinity
+      "
+    >
       Sorry! products could not be fetched, Please check your internet
       connection
     </p>

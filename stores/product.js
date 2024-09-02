@@ -7,7 +7,6 @@ export const useProductsStore = defineStore("products", {
     currentCategory: [],
     currentCategoryName: "ALL",
     isLoading: false,
-    isLinking: false,
     error: "",
     isInProductPage: false,
     priceRange: { min: 0, max: Infinity },

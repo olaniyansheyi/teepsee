@@ -80,7 +80,7 @@ definePageMeta({
               #{{ item.quantity * item.price }}
             </h2>
           </div>
-          <div @click="cartStore.handleDeleteFromCart(item.id)">
+          <div @click="cartStore.handleDeleteFromCart(item.uuid)">
             <img class="w-[1rem] me-4 cursor-pointer" :src="cancel" alt="" />
           </div>
         </div>
@@ -99,7 +99,7 @@ definePageMeta({
             :src="cancel"
             alt=""
             class="w-[18px] cursor-pointer absolute right-3 top-1/2 transform -translate-y-1/2"
-            @click="cartStore.handleDeleteFromCart(item.id)"
+            @click="cartStore.handleDeleteFromCart(item.uuid)"
           />
           <div
             class="bg-[#e6e3e3] flex justify-center items-center h-[120px] w-[50%] rounded-lg"
