@@ -170,13 +170,21 @@ export const useProductsStore = defineStore("products", {
       let recentlyViewed =
         JSON.parse(localStorage.getItem("recentlyViewedProducts")) || [];
 
-      if (!recentlyViewed.includes(productId)) {
-        recentlyViewed.push(productId);
-        localStorage.setItem(
-          "recentlyViewedProducts",
-          JSON.stringify(recentlyViewed)
-        );
+      const existingIndex = recentlyViewed.indexOf(productId);
+      if (existingIndex !== -1) {
+        recentlyViewed.splice(existingIndex, 1);
       }
+
+      recentlyViewed.unshift(productId);
+
+      if (recentlyViewed.length > 5) {
+        recentlyViewed.pop();
+      }
+
+      localStorage.setItem(
+        "recentlyViewedProducts",
+        JSON.stringify(recentlyViewed)
+      );
     },
 
     fetchRecentlyViewedProducts() {
