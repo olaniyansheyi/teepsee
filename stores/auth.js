@@ -95,5 +95,22 @@ export const useAuthStore = defineStore("auth", {
       } = await $supabase.auth.getUser();
       this.user = user;
     },
+
+    async updateProfile({ fullName, address, email }) {
+      const { $supabase } = useNuxtApp();
+      this.loading = true;
+      this.error = null;
+      try {
+        const { data, error } = await $supabase.auth.updateUser({
+          data: { fullName, address, email, },
+        });
+        if (error) throw error;
+        this.user = data.user;
+      } catch (error) {
+        this.error = error.message;
+      } finally {
+        this.loading = false;
+      }
+    },
   },
 });

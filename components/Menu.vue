@@ -70,7 +70,17 @@ async function handleLogout() {
           @click="menuStore.handleToggleMenu"
         />
         <div class="pt-10 px-6 space-y-4">
-          <img :src="unknownUser" class="w-[80px]" alt="" />
+          <div class="flex gap-x-3 justify-start items-center">
+            <div>
+              <img :src="unknownUser" class="w-[80px]" alt="" />
+            </div>
+            <div v-if="authStore.user">
+              <h1 class="text-xl">
+                {{ authStore.user.user_metadata.fullName }}
+              </h1>
+              <p class="text-sm text-primary">Teepseer</p>
+            </div>
+          </div>
           <div
             class="flex flex-col items-start gap-y-5 tracking-wider text-secondary text-lg"
           >

@@ -36,7 +36,7 @@ async function handleLogout() {
             <img :src="demoPic" class="w-[80px]" alt="" />
           </div>
           <div>
-            <h1 class="text-xl">Obiajulu Anayo</h1>
+            <h1 class="text-xl">{{ authStore.user.user_metadata.fullName }}</h1>
             <p class="text-sm text-primary">Teepseer</p>
           </div>
         </div>
