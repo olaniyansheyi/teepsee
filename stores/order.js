@@ -6,7 +6,7 @@ export const useOrderStore = defineStore("order", {
     isLoading: false,
     order: null,
     error: false,
-    userOrders: {},
+    userOrders: [],
   }),
   actions: {
     async createOrder(newOrder) {

@@ -14,8 +14,6 @@ onMounted(async () => {
   }
 });
 
-const products = orderStore.userOrders.flatMap((order) => order.products);
-
 definePageMeta({
   layout: "custom",
   middleware: "auth",
@@ -33,20 +31,34 @@ definePageMeta({
         <h1 class="text-2xl font-semibold">Order History</h1>
         <div class="flex flex-col gap-y-5 items-start justify-start mt-6">
           <div
-            v-for="product in products"
-            :key="product.id"
-            class="flex gap-x-5 justify-start items-start md:w-[65%] lg:w-[55%]"
+            v-for="order in orderStore.userOrders"
+            :key="order.id"
+            class="flex flex-col gap-y-1"
           >
             <div
-              class="w-[92px] h-[90px] rounded-lg bg-[#e6e3e3] flex justify-center items-center"
+              class="flex gap-x-5 justify-start items-start md:w-[65%] lg:w-[55%]"
             >
-              <img :src="product.image" class="w-[70%] h-[80%]" alt="" />
+              <div
+                class="w-[4rem] h-[90px] rounded-lg bg-[#e6e3e3] flex justify-center items-center"
+              >
+                <img
+                  :src="order.products[0].image"
+                  class="w-[3rem] h-[80%]"
+                  alt=""
+                />
+              </div>
+              <div>
+                <p>
+                  {{ order.products[0].name }} and
+                  {{ order.products.length + 1 }} more
+                </p>
+                <h2 class="font-semibold text-sm">
+                  #{{ order.totalPriceCost }}
+                </h2>
+                <p class="text-xm text-primary">pending</p>
+              </div>
             </div>
-            <div>
-              <p>{{ product.name }}</p>
-              <h2 class="font-semibold text-sm">#{{ product.price }}</h2>
-              <p class="text-xm text-primary">pending</p>
-            </div>
+            <p class="mb-5">orderId: [{{ order.uuid }}]</p>
           </div>
         </div>
       </div>
