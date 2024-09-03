@@ -138,9 +138,8 @@ export const useProductsStore = defineStore("products", {
       }
     },
 
-    async toggleFavorite(productId) {
+    async toggleFavorite(productId, userId) {
       try {
-        this.isLinking = true;
         const { $supabase } = useNuxtApp();
         const product = this.products.find((p) => p.uuid === productId);
 
@@ -148,7 +147,7 @@ export const useProductsStore = defineStore("products", {
 
         const { data, error } = await $supabase
           .from("products")
-          .update({ favorite: updateFavoriteStatus })
+          .update({ favorite: updateFavoriteStatus, user_id: userId })
           .eq("uuid", productId)
           .select("favorite")
           .single();
@@ -156,8 +155,6 @@ export const useProductsStore = defineStore("products", {
         if (error) {
           throw new Error("Could not update the favorite status");
         }
-
-        this.isLinking = false;
 
         product.favorite = data.favorite;
 

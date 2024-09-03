@@ -8,6 +8,13 @@ import heartRed from "~/assets/heartRed.png";
 import { useProductsStore } from "~/stores/product.js";
 import blackSpinner from "~/assets/blackSpinner.png";
 const productsStore = useProductsStore();
+import { useAuthStore } from "~/stores/auth";
+
+const authStore = useAuthStore();
+
+onMounted(async () => {
+  if (authStore.user === null) await authStore.getCurrentUser();
+});
 
 const minPrice = ref("");
 const maxPrice = ref("");
@@ -28,7 +35,10 @@ function onSelectPriceRange(range) {
 const toggleFavorite = async (product) => {
   isLiking.value.add(product.uuid);
 
-  const updateFavoriteStatus = await productsStore.toggleFavorite(product.uuid);
+  const updateFavoriteStatus = await productsStore.toggleFavorite(
+    product.uuid,
+    authStore.user.id
+  );
   if (product) {
     product.favorite = updateFavoriteStatus;
     isLiking.value.delete(product.uuid);
