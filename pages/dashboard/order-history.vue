@@ -29,7 +29,13 @@ definePageMeta({
         class="py-12 px-6 rounded-lg bg-white w-full text-secondary tracking-wide"
       >
         <h1 class="text-2xl font-semibold">Order History</h1>
-        <div class="flex flex-col gap-y-5 items-start justify-start mt-6">
+        <div v-if="orderStore.isLoading" class="h-[70vh]">
+          <h1 class="text-center text-2xl">Loading</h1>
+        </div>
+        <div
+          v-if="orderStore.userOrders.length !== 0"
+          class="flex flex-col gap-y-5 items-start justify-start mt-6"
+        >
           <div
             v-for="order in orderStore.userOrders"
             :key="order.id"
@@ -60,6 +66,16 @@ definePageMeta({
             </div>
             <p class="mb-5">orderId: [{{ order.uuid }}]</p>
           </div>
+        </div>
+        <div
+          v-if="
+            orderStore.userOrders.length === 0 && orderStore.isLoading === false
+          "
+          class="my-10"
+        >
+          <h1 class="text-center text-lg">
+            Hey Teepseer! You have not ordered product yet.
+          </h1>
         </div>
       </div>
     </div>

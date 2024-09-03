@@ -13,7 +13,11 @@ onMounted(() => {
   productsStore.getProducts();
 });
 
-onMounted(async () => {
+// onMounted(async () => {
+//   await authStore.getCurrentUser();
+// });
+
+onBeforeMount(async () => {
   await authStore.getCurrentUser();
 });
 </script>

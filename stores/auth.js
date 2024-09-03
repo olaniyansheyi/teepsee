@@ -5,6 +5,7 @@ export const useAuthStore = defineStore("auth", {
     user: null,
     loading: false,
     error: null,
+    avatar_url: "",
   }),
   actions: {
     async signup({ fullName, email, password, address }) {
@@ -102,7 +103,7 @@ export const useAuthStore = defineStore("auth", {
       this.error = null;
       try {
         const { data, error } = await $supabase.auth.updateUser({
-          data: { fullName, address, email, },
+          data: { fullName, address, email },
         });
         if (error) throw error;
         this.user = data.user;
@@ -111,6 +112,86 @@ export const useAuthStore = defineStore("auth", {
       } finally {
         this.loading = false;
       }
+    },
+
+    async updateUserPassword({ oldPassword, newPassword }) {
+      const { $supabase } = useNuxtApp();
+      this.loading = true;
+      this.error = null;
+
+      try {
+        const { error: signInError } = await $supabase.auth.signInWithPassword({
+          email: this.user.email,
+          password: oldPassword,
+        });
+        if (signInError) throw new Error("Incorrect old password");
+
+        const { error: passwordError } = await $supabase.auth.updateUser({
+          password: newPassword,
+        });
+        if (passwordError) throw passwordError;
+
+        return { success: true };
+      } catch (error) {
+        this.error = error.message;
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async uploadAvatar(file) {
+      const { $supabase } = useNuxtApp();
+      this.loading = true;
+      this.error = null;
+
+      try {
+        if (!this.user) throw new Error("No user logged in");
+
+        const fileExt = file.name.split(".").pop();
+        const fileName = `${this.user.id}.${fileExt}`;
+        const filePath = `${fileName}`;
+
+        let { error: uploadError } = await $supabase.storage
+          .from("avatars")
+          .upload(filePath, file, {
+            cacheControl: "3600",
+            upsert: true,
+          });
+
+        if (uploadError) throw uploadError;
+
+        await $supabase.auth.updateUser({
+          data: { avatar_url: filePath },
+        });
+
+        this.user = { ...this.user, avatar_url: filePath };
+
+        return { success: true };
+      } catch (error) {
+        this.error = error.message;
+        console.error(error);
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async getAvatarUrl() {
+      const { $supabase } = useNuxtApp();
+
+      if (!this.user || !this.user.avatar_url) return null;
+
+      const { data, error } = await $supabase.storage
+        .from("avatars")
+        .getPublicUrl(this.user.avatar_url);
+
+      if (error) {
+        this.error = error.message;
+        return null;
+      }
+
+      this.avatar_url = data.publicUrl;
+
+      return data.publicUrl;
     },
   },
 });

@@ -4,7 +4,6 @@ import AddUser from "~/assets/AddUser.png";
 import Bag from "~/assets/icons/Bag.svg";
 import Setting from "~/assets/icons/Setting.svg";
 import Logout from "~/assets/icons/Logout.svg";
-import Location from "~/assets/icons/Location.svg";
 import Heart from "~/assets/icons/Heart.svg";
 import { useAuthStore } from "~/stores/auth.js";
 
@@ -61,10 +60,6 @@ async function handleLogout() {
             <NuxtLink to="/dashboard/setting/change-password"
               >Settings</NuxtLink
             >
-          </div>
-          <div class="flex items-center justify-center gap-x-6">
-            <img :src="Location" alt="" />
-            <NuxtLink to="/dashboard/address">Location</NuxtLink>
           </div>
           <div
             @click="handleLogout"

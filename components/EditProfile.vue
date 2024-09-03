@@ -9,6 +9,7 @@ const authStore = useAuthStore();
 const fullName = ref(authStore.user?.user_metadata.fullName || "");
 const address = ref(authStore.user?.user_metadata.address || "");
 const email = ref(authStore.user?.email || "");
+const avatarUrl = ref(null);
 
 const { $toast } = useNuxtApp();
 
@@ -25,6 +26,23 @@ const handleEditProfile = async () => {
     $toast.error("please try again, failed to update profile");
   }
 };
+
+onMounted(async () => {
+  avatarUrl.value = await authStore.getAvatarUrl();
+});
+
+const handleAvatarChange = async (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    await authStore.uploadAvatar(file);
+    if (!authStore.error) {
+      $toast.success("Avatar updated successfully!");
+      avatarUrl.value = await authStore.getAvatarUrl();
+    } else {
+      $toast.error("Failed to update avatar, please try again.");
+    }
+  }
+};
 </script>
 
 <template>
@@ -35,7 +53,18 @@ const handleEditProfile = async () => {
 
     <div class="flex gap-x-8 justify-start items-center">
       <div class="mt-5 relative w-[80px]">
-        <img :src="unknownUser" class="w-[80px]" alt="" />
+        <img
+          :src="authStore.avatar_url || unknownUser"
+          class="w-[80px]"
+          alt=""
+        />
+        <input
+          type="file"
+          accept="image/*"
+          id="avatar-input"
+          @change="handleAvatarChange"
+        />
+
         <img
           class="w-[25px] absolute bottom-2 right-[-8%] cursor-pointer"
           :src="edit"

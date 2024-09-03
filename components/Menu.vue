@@ -7,7 +7,6 @@ import Bag from "~/assets/icons/Bag.svg";
 import Heart from "~/assets/icons/Heart.svg";
 import Setting from "~/assets/icons/Setting.svg";
 import Logout from "~/assets/icons/Logout.svg";
-import Location from "~/assets/icons/Location.svg";
 import { useProductsStore } from "~/stores/product.js";
 
 import { useAuthStore } from "~/stores/auth.js";
@@ -112,10 +111,7 @@ async function handleLogout() {
                 Settings
               </p>
             </div>
-            <div class="flex items-center justify-center gap-x-6">
-              <img :src="Location" alt="" />
-              <p @click="handleGoToRoute('/dashboard/address')">Location</p>
-            </div>
+
             <div
               v-if="authStore.user"
               @click="handleLogout"
