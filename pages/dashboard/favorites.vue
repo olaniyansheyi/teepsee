@@ -61,12 +61,12 @@ definePageMeta({
         >
           <div
             v-for="product in favoriteProducts"
-            class="text-secondary md:w-[30%] lg:w-[20%] sm:w-[40%] w-[45%] bg-[#e6e3e3] rounded-lg py-3 px-3 relative"
+            class="text-secondary md:w-[30%] lg:w-[20%] sm:w-[40%] h-[260px] w-[45%] bg-[#e6e3e3] rounded-lg py-3 px-3 relative"
           >
             <div
-              class="h-[70%] border-b-[#666666] border-b-[1px] flex justify-center items-center p-4"
+              class="border-b-[#666666] border-b-[1px] flex justify-center items-center p-4"
             >
-              <img class="max-h-[5rem]" :src="product.image" alt="" />
+              <img class="max-[5rem]" :src="product.image" alt="" />
             </div>
             <div class="flex justify-between items-start w-full my-3 flex-col">
               <span class="flex-wrap flex justify-start items-start flex-col">
