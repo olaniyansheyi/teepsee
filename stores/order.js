@@ -55,6 +55,7 @@ export const useOrderStore = defineStore("order", {
 
     async fetchUserOrders(userId) {
       try {
+        this.isLoading = true;
         const { $supabase } = useNuxtApp();
         const { data, error } = await $supabase
           .from("order")
@@ -66,9 +67,11 @@ export const useOrderStore = defineStore("order", {
           return [];
         }
         this.userOrders = data;
+        this.isLoading = false;
         return this.userOrders;
       } catch (error) {
         console.error(error);
+        this.isLoading = false;
         return [];
       }
     },

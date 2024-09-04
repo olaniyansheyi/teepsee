@@ -80,8 +80,6 @@ export const useAuthStore = defineStore("auth", {
           const { data: userData, error } = await $supabase.auth.getUser();
           if (error) throw error;
           this.user = userData.user;
-
-          console.log(this.user);
         } else {
           this.user = null;
         }

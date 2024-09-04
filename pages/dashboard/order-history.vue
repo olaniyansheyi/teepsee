@@ -30,7 +30,7 @@ definePageMeta({
       >
         <h1 class="text-2xl font-semibold">Order History</h1>
         <div v-if="orderStore.isLoading" class="h-[70vh]">
-          <h1 class="text-center text-2xl">Loading</h1>
+          <h1 class="text-center text-2xl mx-auto my-10">Loading</h1>
         </div>
         <div
           v-if="orderStore.userOrders.length !== 0"
@@ -69,7 +69,7 @@ definePageMeta({
         </div>
         <div
           v-if="
-            orderStore.userOrders.length === 0 && orderStore.isLoading === false
+            orderStore.isLoading === false && orderStore.userOrders.length === 0
           "
           class="my-10"
         >
