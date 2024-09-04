@@ -225,8 +225,6 @@ export const useProductsStore = defineStore("products", {
           console.log(error);
         }
 
-        console.log(data);
-
         this.reviews.push(data[0]);
         return data[0];
       } catch (error) {

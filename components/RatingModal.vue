@@ -29,7 +29,6 @@ async function submitReview() {
   await productStore.submitReview(productId.value, rating.value, content.value);
 
   menuStore.handleToggleShowRatingModal();
-  navigateTo("/my-review");
   $toast.success("Review submitted successfully!");
 }
 </script>
