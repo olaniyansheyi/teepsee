@@ -24,7 +24,9 @@ const handleSearch = async () => {
   <div class="pt-5 px-4 sm:px-8 pb-16">
     <div class="text-secondary flex justify-between items-center md:gap-x-5">
       <div class="w-[5.8rem] md:w-[16%] lg:w-[10%]">
-        <img :src="teepseeBlack" alt="" class="hidden lg:block" />
+        <NuxtLink to="/">
+          <img :src="teepseeBlack" alt="" class="hidden lg:block" />
+        </NuxtLink>
         <img
           :src="menuBlack"
           class="lg:hidden block w-[25px] cursor-pointer"
@@ -44,7 +46,7 @@ const handleSearch = async () => {
           <img
             :src="searchBlack"
             alt="Search Icon"
-            class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary"
+            class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary cursor-pointer"
           />
         </form>
         <nav
@@ -71,7 +73,7 @@ const handleSearch = async () => {
           :src="searchBlack"
           alt=""
           @click="menuStore.handleToggleSearch"
-          class="w-[28px]"
+          class="w-[28px] cursor-pointer"
         />
         <NuxtLink to="/cart" class="relative w-[28px]">
           <img :src="Buy" alt="" class="w-[28px]" />

@@ -7,8 +7,13 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     await authStore.getCurrentUser();
   }
 
-  if (!authStore.user && to.path !== "/login") {
-    console.log(authStore.user);
+  const protectedRoutes = ["/dashboard"];
+
+  if (!authStore.user && protectedRoutes.includes(to.path)) {
     return navigateTo("/login");
+  }
+
+  if (authStore.user && to.path === "/login") {
+    return navigateTo("/dashboard/profile");
   }
 });
