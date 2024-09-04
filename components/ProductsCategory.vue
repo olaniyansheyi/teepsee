@@ -53,7 +53,7 @@ import comboMobile from "~/assets/combo-mobile.png";
       >
         <img :src="brandy" class="w-full" alt="" />
       </NuxtLink>
-      <NuxtLink class="rounded-xl w-full hidden md:block" to="/categorise/all">
+      <NuxtLink class="rounded-xl w-full hidden md:block" to="/categories/all">
         <img :src="combo" alt="" class="lg:w-[98%] mx-auto rounded-lg" />
       </NuxtLink>
       <NuxtLink to="/categories/all" class="rounded-xl w-full md:hidden block">
