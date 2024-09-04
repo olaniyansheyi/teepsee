@@ -90,8 +90,7 @@ function togglePasswordVisibility() {
         type="submit"
         class="w-full text-center text-white bg-secondary rounded-md py-2 mt-2 flex justify-center items-center gap-x-8"
       >
-        <h2>Login</h2>
-        <MiniSpinner v-if="authStore.loading" class="w-[20px] h-[20px]" />
+        <h2>{{ authStore.loading ? "Logging in.." : "Login" }}</h2>
       </button>
       <p class="cursor-pointer">
         Don't have an account?

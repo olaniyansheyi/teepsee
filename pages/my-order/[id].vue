@@ -49,7 +49,7 @@ onMounted(async () => {
     <div
       class="py-12 px-6 rounded-lg bg-white w-full text-secondary tracking-wide md:w-[70%] mx-auto"
     >
-      <h1 class="text-2xl font-semibold">Order History</h1>
+      <h1 class="text-2xl font-semibold">Order Info</h1>
       <div
         class="flex flex-col gap-y-5 items-start justify-start mt-2 font-semibold"
       >
@@ -66,7 +66,8 @@ onMounted(async () => {
             <img :src="product.image" class="w-[80%] h-[80%]" alt="" />
           </div>
           <div>
-            <p>{{ product.name }} Quantity: {{ product.quantity }}</p>
+            <p>{{ product.name }}</p>
+            <p>Quantity: {{ product.quantity }}</p>
             <h2 class="font-semibold text-sm">#{{ product.price }}</h2>
             <p
               :class="

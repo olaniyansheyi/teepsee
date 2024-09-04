@@ -16,9 +16,10 @@ definePageMeta({
   layout: "custom",
 });
 
-const email = ref("");
+const fullName = ref(authStore.user?.user_metadata.fullName || "");
+const address = ref(authStore.user?.user_metadata.address || "");
+const email = ref(authStore.user?.email || "");
 const phoneNumber = ref("");
-const address = ref("");
 
 const cartItems = cartStore.cart;
 const isProcessing = ref(false);
@@ -95,9 +96,18 @@ const pay = async () => {
         v-if="cartItems.length !== 0"
         class="py-12 px-4 rounded-lg bg-white w-full text-secondary tracking-wide sm:w-[45%]"
       >
-        <h1 class="text-2xl font-semibold">Address</h1>
+        <h1 class="text-2xl font-semibold">Address And Details</h1>
 
         <div class="lg:w-[60%] w-full">
+          <div>
+            <label class="font-semibold block mt-5">Full Name*</label>
+            <div class="w-full relative">
+              <input
+                v-model="fullName"
+                class="px-4 py-2 rounded-lg bg-[#e6e3e3] w-full mt-1 outline-none"
+              />
+            </div>
+          </div>
           <div>
             <label class="font-semibold block mt-5">Enter Address*</label>
             <div class="w-full relative">
