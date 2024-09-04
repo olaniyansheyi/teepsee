@@ -7,9 +7,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     await authStore.getCurrentUser();
   }
 
-  const protectedRoutes = ["/dashboard"];
-
-  if (!authStore.user && protectedRoutes.includes(to.path)) {
+  if (!authStore.user) {
     return navigateTo("/login");
   }
 

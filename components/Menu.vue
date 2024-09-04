@@ -133,23 +133,13 @@ async function handleLogout() {
             class="flex flex-col items-start gap-y-4 text-white"
           >
             <button
-              @click="
-                () => {
-                  menuStore.handleToggleMenu();
-                  navigateTo('/login');
-                }
-              "
+              @click="handleGoToRoute('/login')"
               class="bg-secondary rounded-lg py-3 w-[9rem]"
             >
               Login
             </button>
             <button
-              @click="
-                () => {
-                  menuStore.handleToggleMenu();
-                  navigateTo('/signup');
-                }
-              "
+              @click="handleGoToRoute('/signup')"
               class="bg-primary rounded-lg py-3 w-[9rem]"
             >
               Sign Up
