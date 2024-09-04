@@ -30,6 +30,10 @@ onMounted(async () => {
   await authStore.getAvatarUrl();
 });
 
+function handleGoToRoute(route) {
+  navigateTo(route);
+}
+
 const avatar_url = computed(() => authStore.avatar_url);
 </script>
 
@@ -50,36 +54,44 @@ const avatar_url = computed(() => authStore.avatar_url);
         </div>
 
         <div
-          class="flex flex-col items-start gap-y-5 tracking-wider text-secondary text-lg pt-4 cursor-pointer"
+          class="flex flex-col items-start gap-y-5 tracking-wider text-secondary text-lg cursor-pointer my-5"
         >
           <div class="flex items-center justify-center gap-x-6">
             <img :src="AddUser" alt="" />
-            <p @click="handleGoToProfile">Profile</p>
+            <p @click="handleGoToProfile" class="cursor-pointer">Profile</p>
           </div>
           <div class="flex items-center justify-center gap-x-6">
             <img :src="Bag" alt="" />
-            <NuxtLink to="/dashboard/order-history">My Orders</NuxtLink>
+            <p @click="handleGoToRoute('/track-order')">Track Orders</p>
           </div>
           <div class="flex items-center justify-center gap-x-6">
             <img :src="Heart" alt="" />
-            <NuxtLink to="/dashboard/favorites">Favourites</NuxtLink>
+            <p @click="handleGoToRoute('/dashboard/favorites')">Favourites</p>
+          </div>
+          <div class="flex items-center justify-center gap-x-6">
+            <img :src="Heart" alt="" />
+            <p @click="handleGoToRoute('/faq')">F.A.Q</p>
+          </div>
+          <div class="flex items-center justify-center gap-x-6">
+            <img :src="Bag" alt="" />
+            <p @click="handleGoToRoute('/dashboard/order-history')">
+              My Orders
+            </p>
           </div>
           <div class="flex items-center justify-center gap-x-6">
             <img :src="Setting" alt="" />
-            <NuxtLink to="/dashboard/setting/change-password"
-              >Settings</NuxtLink
-            >
+            <p @click="handleGoToRoute('/dashboard/setting/change-password')">
+              Settings
+            </p>
           </div>
+
           <div
+            v-if="authStore.user"
             @click="handleLogout"
             class="flex items-center justify-center gap-x-6"
           >
             <img :src="Logout" alt="" />
             <p>Logout</p>
-            <MiniSpinner
-              class="w-[16px] ms-[-15px] pt-2"
-              v-if="authStore.loading"
-            />
           </div>
         </div>
       </div>

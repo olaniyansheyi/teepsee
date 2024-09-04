@@ -4,13 +4,15 @@ import unknownUser from "~/assets/unknownUser.png";
 import AddUser from "~/assets/AddUser.png";
 import Bag from "~/assets/icons/Bag.svg";
 import Heart from "~/assets/icons/Heart.svg";
-import heartRed from "~/assets/heartRed.png";
 import { useProductsStore } from "~/stores/product.js";
-import blackSpinner from "~/assets/blackSpinner.png";
+import Logout from "~/assets/icons/Logout.svg";
+import Setting from "~/assets/icons/Setting.svg";
+
 const productsStore = useProductsStore();
 import { useAuthStore } from "~/stores/auth";
 
 const authStore = useAuthStore();
+const { $toast } = useNuxtApp();
 
 onMounted(async () => {
   if (authStore.user === null) await authStore.getCurrentUser();
@@ -18,7 +20,6 @@ onMounted(async () => {
 
 const minPrice = ref("");
 const maxPrice = ref("");
-const isLiking = ref(new Set());
 
 function onSetPriceRange() {
   const min = parseFloat(minPrice.value) || 0;
@@ -32,18 +33,31 @@ function onSelectPriceRange(range) {
   productsStore.selectPriceRange(range);
 }
 
-const toggleFavorite = async (product) => {
-  isLiking.value.add(product.uuid);
+onMounted(async () => {
+  await authStore.getAvatarUrl();
+});
 
-  const updateFavoriteStatus = await productsStore.toggleFavorite(
-    product.uuid,
-    authStore.user.id
-  );
-  if (product) {
-    product.favorite = updateFavoriteStatus;
-    isLiking.value.delete(product.uuid);
+function handleGoToProfile() {
+  if (authStore.user) {
+    navigateTo("/dashboard/profile");
+  } else {
+    navigateTo("/login");
   }
-};
+
+  menuStore.handleToggleMenu();
+}
+
+function handleGoToRoute(route) {
+  navigateTo(route);
+}
+
+async function handleLogout() {
+  await authStore.logout();
+
+  if (!authStore.user) $toast.success("You successfully logged out!");
+}
+
+const avatar_url = computed(() => authStore.avatar_url);
 
 const props = defineProps({
   currentCategory: {
@@ -55,30 +69,90 @@ const props = defineProps({
 
 <template>
   <div class="mx-5 mb-8 flex justify-start items-start gap-5">
-    <div class="w-[280px] bg-white h-full rounded-lg md:block hidden">
+    <div
+      class="w-[400px] bg-white overflow-y-auto rounded-lg md:block hidden h-[80vh]"
+    >
       <div class="w-full h-full">
         <div class="pt-5 px-6 space-y-3">
-          <img :src="unknownUser" class="w-[80px]" alt="" />
+          <div class="flex gap-x-3 justify-start items-center">
+            <div>
+              <img :src="avatar_url || unknownUser" class="w-[90px]" alt="" />
+            </div>
+            <div v-if="authStore.user">
+              <h1 class="text-md">
+                {{ authStore.user.user_metadata.fullName }}
+              </h1>
+              <p class="text-sm text-primary">Teepseer</p>
+            </div>
+          </div>
           <div
-            class="flex flex-col items-start gap-y-5 tracking-wider text-secondary text-lg"
+            class="flex flex-col items-start gap-y-5 tracking-wider text-secondary text-lg cursor-pointer mb-5"
           >
             <div class="flex items-center justify-center gap-x-6">
               <img :src="AddUser" alt="" />
-              <p>Profile</p>
+              <p @click="handleGoToProfile" class="cursor-pointer">Profile</p>
             </div>
             <div class="flex items-center justify-center gap-x-6">
               <img :src="Bag" alt="" />
-              <p>My Orders</p>
+              <p @click="handleGoToRoute('/track-order')">Track Orders</p>
             </div>
             <div class="flex items-center justify-center gap-x-6">
               <img :src="Heart" alt="" />
-              <p>Favourites</p>
+              <p @click="handleGoToRoute('/dashboard/favorites')">Favourites</p>
+            </div>
+            <div class="flex items-center justify-center gap-x-6">
+              <img :src="Heart" alt="" />
+              <p @click="handleGoToRoute('/faq')">F.A.Q</p>
+            </div>
+            <div class="flex items-center justify-center gap-x-6">
+              <img :src="Bag" alt="" />
+              <p @click="handleGoToRoute('/dashboard/order-history')">
+                My Orders
+              </p>
+            </div>
+            <div class="flex items-center justify-center gap-x-6">
+              <img :src="Setting" alt="" />
+              <p @click="handleGoToRoute('/dashboard/setting/change-password')">
+                Settings
+              </p>
+            </div>
+
+            <div
+              v-if="authStore.user"
+              @click="handleLogout"
+              class="flex items-center justify-center gap-x-6"
+            >
+              <img :src="Logout" alt="" />
+              <p>Logout</p>
             </div>
           </div>
 
-          <div class="flex flex-col items-start gap-y-4 text-white">
-            <button class="bg-secondary rounded-lg py-3 w-[9rem]">Login</button>
-            <button class="bg-primary rounded-lg py-3 w-[9rem]">Sign Up</button>
+          <div
+            v-if="!authStore.user"
+            class="flex flex-col items-start gap-y-4 text-white"
+          >
+            <button
+              @click="
+                () => {
+                  menuStore.handleToggleMenu();
+                  navigateTo('/login');
+                }
+              "
+              class="bg-secondary rounded-lg py-3 w-[9rem]"
+            >
+              Login
+            </button>
+            <button
+              @click="
+                () => {
+                  menuStore.handleToggleMenu();
+                  navigateTo('/signup');
+                }
+              "
+              class="bg-primary rounded-lg py-3 w-[9rem]"
+            >
+              Sign Up
+            </button>
           </div>
 
           <div
