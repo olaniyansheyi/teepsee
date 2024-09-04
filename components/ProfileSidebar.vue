@@ -6,6 +6,7 @@ import Setting from "~/assets/icons/Setting.svg";
 import Logout from "~/assets/icons/Logout.svg";
 import Heart from "~/assets/icons/Heart.svg";
 import { useAuthStore } from "~/stores/auth.js";
+import unknownUser from "~/assets/unknownUser.png";
 
 const authStore = useAuthStore();
 
@@ -24,6 +25,12 @@ async function handleLogout() {
 
   if (!authStore.user) $toast.success("You successfully logged out!");
 }
+
+onMounted(async () => {
+  await authStore.getAvatarUrl();
+});
+
+const avatar_url = computed(() => authStore.avatar_url);
 </script>
 
 <template>
@@ -32,10 +39,12 @@ async function handleLogout() {
       <div class="px-8">
         <div class="flex gap-x-5 justify-start items-center">
           <div>
-            <img :src="demoPic" class="w-[80px]" alt="" />
+            <img :src="avatar_url || unknownUser" class="w-[80px]" alt="" />
           </div>
           <div>
-            <h1 class="text-xl">{{ authStore.user.user_metadata.fullName }}</h1>
+            <h1 class="text-xl">
+              {{ authStore.user?.user_metadata?.fullName }}
+            </h1>
             <p class="text-sm text-primary">Teepseer</p>
           </div>
         </div>

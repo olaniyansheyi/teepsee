@@ -9,7 +9,6 @@ const authStore = useAuthStore();
 const fullName = ref(authStore.user?.user_metadata.fullName || "");
 const address = ref(authStore.user?.user_metadata.address || "");
 const email = ref(authStore.user?.email || "");
-const avatarUrl = ref(null);
 
 const { $toast } = useNuxtApp();
 
@@ -28,8 +27,10 @@ const handleEditProfile = async () => {
 };
 
 onMounted(async () => {
-  avatarUrl.value = await authStore.getAvatarUrl();
+  await authStore.getAvatarUrl();
 });
+
+const avatar_url = computed(() => authStore.avatar_url);
 
 const handleAvatarChange = async (event) => {
   const file = event.target.files[0];
@@ -43,6 +44,10 @@ const handleAvatarChange = async (event) => {
     }
   }
 };
+
+function handleFileInput() {
+  document.getElementById("avatar-input").click();
+}
 </script>
 
 <template>
@@ -53,22 +58,21 @@ const handleAvatarChange = async (event) => {
 
     <div class="flex gap-x-8 justify-start items-center">
       <div class="mt-5 relative w-[80px]">
-        <img
-          :src="authStore.avatar_url || unknownUser"
-          class="w-[80px]"
-          alt=""
-        />
+        <img :src="avatar_url || unknownUser" class="w-[80px]" alt="" />
         <input
           type="file"
           accept="image/*"
           id="avatar-input"
+          class="hidden"
           @change="handleAvatarChange"
         />
 
         <img
+          v-if="!avatar_url"
           class="w-[25px] absolute bottom-2 right-[-8%] cursor-pointer"
           :src="edit"
           alt=""
+          @click="handleFileInput"
         />
       </div>
       <div>

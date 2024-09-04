@@ -20,6 +20,12 @@ const { $toast } = useNuxtApp();
 const minPrice = ref("");
 const maxPrice = ref("");
 
+onMounted(async () => {
+  await authStore.getAvatarUrl();
+});
+
+const avatar_url = computed(() => authStore.avatar_url);
+
 function onSetPriceRange() {
   const min = parseFloat(minPrice.value) || 0;
   const max = parseFloat(maxPrice.value) || Infinity;
@@ -71,7 +77,7 @@ async function handleLogout() {
         <div class="pt-10 px-6 space-y-4">
           <div class="flex gap-x-3 justify-start items-center">
             <div>
-              <img :src="unknownUser" class="w-[80px]" alt="" />
+              <img :src="avatar_url || unknownUser" class="w-[80px]" alt="" />
             </div>
             <div v-if="authStore.user">
               <h1 class="text-xl">
