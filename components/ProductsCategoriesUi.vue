@@ -76,7 +76,11 @@ const props = defineProps({
         <div class="pt-5 px-6 space-y-3">
           <div class="flex gap-x-3 justify-start items-center">
             <div>
-              <img :src="avatar_url || unknownUser" class="w-[90px]" alt="" />
+              <img
+                :src="avatar_url || unknownUser"
+                class="w-[90px] rounded-full"
+                alt=""
+              />
             </div>
             <div v-if="authStore.user">
               <h1 class="text-md">

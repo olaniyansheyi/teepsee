@@ -70,24 +70,27 @@ export const useAuthStore = defineStore("auth", {
     async getCurrentUser() {
       const { $supabase } = useNuxtApp();
       this.loading = true;
-      let response;
+
       try {
-        response = await $supabase.auth.getSession();
-        const { data: session } = response;
-        if (session.session) {
-          const { data, error } = await $supabase.auth.getUser();
+        const {
+          data: { session },
+        } = await $supabase.auth.getSession();
+
+        if (session) {
+          const { data: userData, error } = await $supabase.auth.getUser();
           if (error) throw error;
-          this.user = data.user;
+          this.user = userData.user;
+
           console.log(this.user);
         } else {
           this.user = null;
         }
       } catch (error) {
         this.error = error.message;
+        this.user = null;
       } finally {
         this.loading = false;
       }
-      return response;
     },
     async fetchUser() {
       const { $supabase } = useNuxtApp();

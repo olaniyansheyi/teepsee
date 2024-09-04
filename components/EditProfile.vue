@@ -58,7 +58,11 @@ function handleFileInput() {
 
     <div class="flex gap-x-8 justify-start items-center">
       <div class="mt-5 relative w-[80px]">
-        <img :src="avatar_url || unknownUser" class="w-[80px]" alt="" />
+        <img
+          :src="avatar_url || unknownUser"
+          class="w-[80px] rounded-full"
+          alt=""
+        />
         <input
           type="file"
           accept="image/*"

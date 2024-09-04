@@ -1,18 +1,11 @@
 <script setup>
-import Heart from "~/assets/icons/Heart.svg";
-
 import { useAuthStore } from "~/stores/auth";
 
 import { useProductsStore } from "~/stores/product.js";
 
-import heartRed from "~/assets/heartRed.png";
-
-import blackSpinner from "~/assets/blackSpinner.png";
-
 const productsStore = useProductsStore();
 
 const authStore = useAuthStore();
-const isLiking = ref(new Set());
 const favoriteProducts = ref([]);
 
 onMounted(async () => {
@@ -21,24 +14,6 @@ onMounted(async () => {
   );
   if (authStore.user === null) await authStore.getCurrentUser();
 });
-
-const toggleFavorite = async (product) => {
-  isLiking.value.add(product.uuid);
-
-  const updateFavoriteStatus = await productsStore.toggleFavorite(
-    product.uuid,
-    authStore.user.id
-  );
-  if (product) {
-    product.favorite = updateFavoriteStatus;
-    isLiking.value.delete(product.uuid);
-  }
-
-  //calling the fnx again so as to update the UI immediately
-  favoriteProducts.value = await productsStore.fetchFavoriteProducts(
-    authStore.user.id
-  );
-};
 
 definePageMeta({
   layout: "custom",

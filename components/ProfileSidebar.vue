@@ -43,7 +43,11 @@ const avatar_url = computed(() => authStore.avatar_url);
       <div class="px-8">
         <div class="flex gap-x-5 justify-start items-center">
           <div>
-            <img :src="avatar_url || unknownUser" class="w-[80px]" alt="" />
+            <img
+              :src="avatar_url || unknownUser"
+              class="w-[80px] rounded-full"
+              alt=""
+            />
           </div>
           <div>
             <h1 class="text-xl">

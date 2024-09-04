@@ -77,7 +77,11 @@ async function handleLogout() {
         <div class="pt-10 px-6 space-y-4">
           <div class="flex gap-x-3 justify-start items-center">
             <div>
-              <img :src="avatar_url || unknownUser" class="w-[80px]" alt="" />
+              <img
+                :src="avatar_url || unknownUser"
+                class="w-[80px] rounded-full"
+                alt=""
+              />
             </div>
             <div v-if="authStore.user">
               <h1 class="text-xl">

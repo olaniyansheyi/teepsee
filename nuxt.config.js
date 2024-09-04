@@ -8,6 +8,9 @@ export default {
   vite: {
     assetsInclude: ["**/*.svg", "**/*.png"],
   },
+  router: {
+    middleware: "auth",
+  },
 
   runtimeConfig: {
     public: {
