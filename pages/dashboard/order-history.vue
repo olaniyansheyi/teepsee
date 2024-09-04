@@ -56,7 +56,7 @@ definePageMeta({
               <div>
                 <p>
                   {{ order.products[0].name }} and
-                  {{ order.products.length + 1 }} more
+                  {{ order.products.length - 1 }} others
                 </p>
                 <h2 class="font-semibold text-sm">
                   #{{ order.totalPriceCost }}
