@@ -1,6 +1,6 @@
 <template>
   <div
-    class="py-4 px-6 md:px-10 h-[400px] sm:h-[500px] bg-heroImg bg-cover bg-center bg-no-repeat"
+    class="py-4 px-6 md:px-10 h-[400px] sm:h-[500px] lg:h-[700px] bg-heroImg bg-cover bg-center bg-no-repeat"
   >
     <HeroHeader />
     <div class="w-full h-full flex justify-start items-center text-white">
