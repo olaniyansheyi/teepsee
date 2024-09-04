@@ -26,14 +26,6 @@ onMounted(async () => {
   loading.value = false;
 });
 
-function increaseQuantity() {
-  productStore.increaseQuantity(productId);
-}
-
-function decreaseQuantity() {
-  productStore.decreaseQuantity(productId);
-}
-
 const isInCart = computed(() => {
   return cartStore.isInCart(productId);
 });
@@ -86,19 +78,7 @@ definePageMeta({
         </h2>
         <p class="text-xs gray-white-text">Quantity</p>
         <div>
-          <div class="my-1">{{ product.quantity }}</div>
-          <button
-            @click="decreaseQuantity"
-            class="py-[2px] ps-4 pe-5 border-[1px] rounded-s-md border-[#666666]"
-          >
-            -
-          </button>
-          <button
-            @click="increaseQuantity"
-            class="py-[2px] ps-4 pe-5 border-[1px] rounded-e-md border-[#666666] border-s-0"
-          >
-            +
-          </button>
+          <div>{{ product.quantity }}</div>
         </div>
         <h1 class="text-md font-semibold mt-1">Product description</h1>
         <p class="text-[#666666]">

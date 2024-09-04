@@ -173,35 +173,7 @@ const props = defineProps({
     <div
       class="flex justify-start lg:items-start items-center gap-5 flex-wrap md:justify-start my-3 w-full"
     >
-      <div
-        v-for="product in props.currentCategory"
-        :key="product.id"
-        @click="productsStore.navigateToProduct(product.uuid)"
-        class="text-secondary w-[45%] md:w-[40%] lg:w-[21%] h-[260px] bg-white rounded-lg py-5 sm:px-8 px-2 relative cursor-pointer"
-      >
-        <div
-          class="h-[50%] border-b-[#666666] border-b-[1px] flex justify-center items-center p-4"
-        >
-          <img class="h-[5rem]" :src="product.image" alt="" />
-        </div>
-        <div
-          class="flex justify-between items-start w-full my-3 flex-col gap-y-1"
-        >
-          <span class="flex justify-start items-start flex-col">
-            <h1 class="text-md font-semibold">{{ product.name }}</h1>
-            <p class="text-[#666666]">{{ product.category }}</p>
-          </span>
-          <h2 class="font-semibold text-md">#{{ product.price }}</h2>
-        </div>
-        <div
-          class="w-[25px] absolute top-3 right-4"
-          @click.stop="toggleFavorite(product)"
-        >
-          <img v-if="isLiking.has(product.uuid)" :src="blackSpinner" alt="" />
-
-          <img v-else :src="product.favorite ? heartRed : Heart" alt="" />
-        </div>
-      </div>
+      <ProductContainer :productInfo="props.currentCategory" />
     </div>
   </div>
 

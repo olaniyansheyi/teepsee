@@ -102,19 +102,6 @@ export const useProductsStore = defineStore("products", {
       navigateTo(`/products/${productId}`);
     },
 
-    increaseQuantity(productId) {
-      const product = this.getProductById(productId);
-      if (product) {
-        product.quantity = product.quantity + 1;
-      }
-    },
-
-    decreaseQuantity(productId) {
-      const product = this.getProductById(productId);
-      if (product && product.quantity > 1) {
-        product.quantity -= 1;
-      }
-    },
     async searchProducts(query) {
       try {
         this.isLoading = true;

@@ -49,6 +49,9 @@ input[type="radio"] {
   border-radius: 50%;
   cursor: pointer;
 }
+.bg-color-white {
+  background-color: #e6e3e3 !important;
+}
 
 @keyframes loading {
   20% {

@@ -125,10 +125,6 @@ async function handleLogout() {
             >
               <img :src="Logout" alt="" />
               <p>Logout</p>
-              <MiniSpinner
-                class="w-[16px] ms-[-15px] pt-2"
-                v-if="authStore.loading"
-              />
             </div>
           </div>
 

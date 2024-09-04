@@ -72,8 +72,22 @@ definePageMeta({
           <div>
             <h2 class="text-xl font-semibold">#{{ item.price }}</h2>
           </div>
-          <div>
+          <div class="flex justify-center items-center flex-col">
             <h2 class="text-xl font-semibold">{{ item.quantity }}</h2>
+            <div class="mt-3">
+              <button
+                @click="cartStore.decreaseQuantity(item.id)"
+                class="ps-4 pe-5 border-[1px] rounded-s-md border-[#666666]"
+              >
+                -
+              </button>
+              <button
+                @click="cartStore.increaseQuantity(item.id)"
+                class="ps-4 pe-5 border-[1px] rounded-e-md border-[#666666] border-s-0"
+              >
+                +
+              </button>
+            </div>
           </div>
           <div>
             <h2 class="text-xl font-semibold">

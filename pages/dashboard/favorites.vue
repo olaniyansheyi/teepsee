@@ -59,35 +59,10 @@ definePageMeta({
           v-if="favoriteProducts.length !== 0"
           class="flex justify-center items-start gap-5 flex-wrap md:justify-start my-3"
         >
-          <div
-            v-for="product in favoriteProducts"
-            class="text-secondary md:w-[30%] lg:w-[20%] sm:w-[40%] h-[260px] w-[45%] bg-[#e6e3e3] rounded-lg py-3 px-3 relative"
-          >
-            <div
-              class="border-b-[#666666] border-b-[1px] flex justify-center items-center p-4"
-            >
-              <img class="max-[5rem]" :src="product.image" alt="" />
-            </div>
-            <div class="flex justify-between items-start w-full my-3 flex-col">
-              <span class="flex-wrap flex justify-start items-start flex-col">
-                <h1 class="text-md font-semibold">{{ product.name }}</h1>
-                <p class="text-[#666666]">{{ product.category }}</p>
-              </span>
-              <h2 class="font-semibold text-md">#{{ product.price }}</h2>
-            </div>
-            <div
-              class="w-[25px] absolute top-3 right-4"
-              @click.stop="toggleFavorite(product)"
-            >
-              <img
-                v-if="isLiking.has(product.uuid)"
-                :src="blackSpinner"
-                alt=""
-              />
-
-              <img v-else :src="product.favorite ? heartRed : Heart" alt="" />
-            </div>
-          </div>
+          <ProductContainer
+            :containerClass="'bg-color-white'"
+            :productInfo="favoriteProducts"
+          />
         </div>
         <div v-else class="my-10">
           <h1 class="text-lg font-semibold text-center">

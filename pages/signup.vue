@@ -32,7 +32,7 @@ async function handleSignUp() {
       navigateTo("/login");
 
       $toast.success(
-        "refistration successfull, PLease make sure you verify your email before you log in!"
+        "registration successfull, PLease go ahead and login with your details!"
       );
     }
   } catch (error) {
