@@ -64,7 +64,7 @@ definePageMeta({
                 <p class="text-xm text-primary">pending</p>
               </div>
             </div>
-            <p class="mb-5">orderId: [{{ order.uuid }}]</p>
+            <p>orderId: [{{ order.uuid }}]</p>
           </div>
         </div>
         <div

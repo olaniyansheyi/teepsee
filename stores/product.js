@@ -14,6 +14,9 @@ export const useProductsStore = defineStore("products", {
     searchedProducts: [],
     recentlyViewedProducts: [],
     favoriteProducts: [],
+    //reviews
+    rewiews: [],
+    product_id: "",
   }),
   actions: {
     async getProducts() {
@@ -200,6 +203,57 @@ export const useProductsStore = defineStore("products", {
       } catch (error) {
         console.error(error);
         return [];
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    handleSetProductIdForRating(id) {
+      this.product_id = id;
+    },
+
+    async submitReview(productId, rating, content) {
+      this.isLoading = true;
+      try {
+        const { $supabase } = useNuxtApp();
+        const { data, error } = await $supabase
+          .from("reviews")
+          .insert([{ product_id: productId, rating, content }]);
+
+        if (error) {
+          console.error(error);
+          console.log(error);
+        }
+
+        console.log(data);
+
+        this.reviews.push(data[0]);
+        return data[0];
+      } catch (error) {
+        this.error = error.message;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    async fetchReviews(productId) {
+      this.isLoading = true;
+      try {
+        const { $supabase } = useNuxtApp();
+        const { data, error } = await $supabase
+          .from("reviews")
+          .select("*")
+          .eq("product_id", productId);
+
+        if (error) {
+          throw new Error("Failed to fetch reviews");
+        }
+
+        this.reviews = data || [];
+        return this.reviews;
+      } catch (error) {
+        console.error(error.message);
+        this.error = error.message;
       } finally {
         this.isLoading = false;
       }

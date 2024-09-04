@@ -5,8 +5,33 @@ import starActive from "~/assets/starActive.png";
 import starGray from "~/assets/starGray.png";
 
 import { useMenuStore } from "~/stores/menu";
+import { useProductsStore } from "~/stores/product";
+
+const { $toast } = useNuxtApp();
+
+const productStore = useProductsStore();
 
 const menuStore = useMenuStore();
+
+const productId = computed(() => productStore.product_id);
+const rating = ref(0);
+const content = ref("");
+
+function setRating(star) {
+  rating.value = star;
+}
+
+async function submitReview() {
+  if (rating.value === 0 || content.value === "") {
+    $toast.error("Please provide a rating and a review.");
+    return;
+  }
+  await productStore.submitReview(productId.value, rating.value, content.value);
+
+  menuStore.handleToggleShowRatingModal();
+  navigateTo("/my-review");
+  $toast.success("Review submitted successfully!");
+}
 </script>
 
 <template>
@@ -22,7 +47,7 @@ const menuStore = useMenuStore();
         @click="menuStore.handleToggleShowRatingModal"
       />
     </div>
-    <h1 class="font-semibold text-2xl">Hello Anayo</h1>
+    <h1 class="font-semibold text-2xl">Hello Teepser!</h1>
     <p>Please rate your drink</p>
     <div
       class="w-[90px] mt-1 h-[90px] bg-[#e6e3e3] rounded-full flex justify-center items-center"
@@ -30,14 +55,17 @@ const menuStore = useMenuStore();
       <img :src="hennessey2" class="w-[70px] h-[70px]" alt="" />
     </div>
     <div class="flex gap-x-2 items-center justify-center mt-1">
-      <img :src="starActive" alt="" />
-      <img :src="starActive" alt="" />
-      <img :src="starActive" alt="" />
-      <img :src="starActive" alt="" />
-      <img :src="starGray" alt="" />
+      <img
+        v-for="star in 5"
+        :key="star"
+        :src="star <= rating ? starActive : starGray"
+        @click="setRating(star)"
+        class="star"
+      />
     </div>
-    <form>
+    <form @submit.prevent="submitReview">
       <textarea
+        v-model="content"
         cols="30"
         rows="10"
         class="w-full mt-3 mx-auto rounded-lg p-3 h-[150px] border-2 border-[#e6e3e3] outline-none"
@@ -47,7 +75,7 @@ const menuStore = useMenuStore();
         type="submit"
         class="mt-4 rounded-lg w-full py-2 bg-secondary font-semibold text-white"
       >
-        Submit
+        {{ productStore.isLoading ? "submiting" : "submit" }}
       </button>
     </form>
   </div>

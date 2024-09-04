@@ -1,6 +1,5 @@
 <script setup>
 import { useProductsStore } from "~/stores/product";
-import Heart from "~/assets/icons/Heart.svg";
 
 const productStore = useProductsStore();
 
@@ -28,19 +27,6 @@ watch(
   },
   { immediate: true }
 );
-
-const toggleFavorite = async (product) => {
-  isLiking.value.add(product.uuid);
-
-  const updateFavoriteStatus = await productsStore.toggleFavorite(
-    product.uuid,
-    authStore.user.id
-  );
-  if (product) {
-    product.favorite = updateFavoriteStatus;
-    isLiking.value.delete(product.uuid);
-  }
-};
 </script>
 
 <template>
@@ -54,7 +40,7 @@ const toggleFavorite = async (product) => {
   </div>
   <div
     v-if="productStore.searchedProducts"
-    class="flex justify-center lg:items-start items-center gap-5 flex-wrap md:justify-start my-3 w-full"
+    class="flex justify-center lg:items-start items-center gap-5 flex-wrap md:justify-start my-3 w-full md:px-8 px-4"
   >
     <ProductContainer :productInfo="searchedProducts" />
   </div>
